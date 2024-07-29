@@ -3,6 +3,7 @@
 import {
   Button,
   Card,
+  Carousel,
   Typography,
   List,
   ListItem,
@@ -14,6 +15,7 @@ import {
 export {
   Button,
   Card,
+  Carousel,
   Typography,
   List,
   ListItem,
