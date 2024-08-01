@@ -17,6 +17,9 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import Image from "next/image";
+import Link from "next/link";
+import whatsapp from "/public/whatsapp.png"
  
 const TABS = [
   {
@@ -215,10 +218,22 @@ export default function CalonSiswa() {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Tooltip content="Edit User">
+                      <Tooltip content="Detail User">
+                        <Link href={'/calon-siswa/21'}>
                         <IconButton variant="text">
                           <PencilIcon className="h-4 w-4" />
                         </IconButton>
+                        </Link>
+                      </Tooltip>
+                      <Tooltip content="Kirim Pesan Siswa">
+                        <Link href={'/calon-siswa/21'}>
+                        <IconButton variant="text">
+                          {/* <PencilIcon className="h-4 w-4" /> */}
+                          <div className="relative h-5 w-5">
+                            <Image src={whatsapp} alt="whatsapp icon" objectFit="cover" />
+                          </div>
+                        </IconButton>
+                        </Link>
                       </Tooltip>
                     </td>
                   </tr>

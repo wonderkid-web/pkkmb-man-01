@@ -19,7 +19,10 @@ import {
   Tab,
   Avatar,
   IconButton,
+  ButtonGroup,
   Tooltip,
+  Stepper,
+  Step
 } from "@material-tailwind/react";
 
 export {
@@ -41,5 +44,8 @@ export {
   Tab,
   Avatar,
   IconButton,
+  ButtonGroup,
   Tooltip,
+  Stepper,
+  Step
 };
