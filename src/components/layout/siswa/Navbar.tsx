@@ -8,41 +8,42 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "/public/logo.png";
+import Link from "next/link";
 
 function NavList() {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography as="li" variant="small" className="p-1 font-medium">
-        <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+        <Link
+          href="/siswa/"
+          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
         >
-          Pages
-        </a>
+          Profile Sekolah
+        </Link>
       </Typography>
       <Typography as="li" variant="small" className="p-1 font-medium">
-        <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+        <Link
+          href="/siswa/"
+          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
         >
-          Account
-        </a>
+          Visi & Misi
+        </Link>
       </Typography>
       <Typography as="li" variant="small" className="p-1 font-medium">
-        <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+        <Link
+          href="/siswa/"
+          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
         >
-          Blocks
-        </a>
+          Lokasi Sekolah
+        </Link>
       </Typography>
       <Typography as="li" variant="small" className="p-1 font-medium">
-        <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
+        <Link
+          href="/siswa/form-daftar"
+          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
         >
-          Docs
-        </a>
+          Form Pendaftaran
+        </Link>
       </Typography>
     </ul>
   );

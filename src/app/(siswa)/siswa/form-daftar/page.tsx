@@ -18,6 +18,7 @@ import {
   Step,
 } from "@material-tailwind/react";
 import { FormData } from "@/types";
+import { IdentificationIcon, UsersIcon } from "@heroicons/react/24/solid";
 
 const Register = () => {
   const [activeStep, setActiveStep] = React.useState<0 | 1 | 2>(0);
@@ -543,35 +544,37 @@ function StepperWithContent({
               variant="h6"
               color={activeStep === 0 ? "blue-gray" : "gray"}
             >
-              Step 1
+              Langkah 1
             </Typography>
             <Typography
               color={activeStep === 0 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-              Details about yout account.
+              Formulir Data diri Siswa/i.
             </Typography>
           </div>
         </Step>
+
         <Step onClick={() => setActiveStep(1)}>
-          <CogIcon className="h-5 w-5" />
+          <UsersIcon className="h-5 w-5" />
           <div className="absolute -bottom-[4.5rem] w-max text-center">
             <Typography
               variant="h6"
               color={activeStep === 1 ? "blue-gray" : "gray"}
             >
-              Step 2
+              Langkah 2
             </Typography>
             <Typography
               color={activeStep === 1 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-              Details about yout account.
+               Formulir Data diri Orang tua Siswa/i.
             </Typography>
           </div>
         </Step>
+        
         <Step onClick={() => setActiveStep(2)}>
-          <BuildingLibraryIcon className="h-5 w-5" />
+          <IdentificationIcon className="h-5 w-5" />
           <div className="absolute -bottom-[4.5rem] w-max text-center">
             <Typography
               variant="h6"
@@ -583,7 +586,7 @@ function StepperWithContent({
               color={activeStep === 2 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-              Details about yout account.
+              Dokumen Pribadi calon Siswa/i.
             </Typography>
           </div>
         </Step>
