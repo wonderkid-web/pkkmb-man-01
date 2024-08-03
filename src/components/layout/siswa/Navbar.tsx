@@ -23,20 +23,20 @@ function NavList() {
       </Typography>
       <Typography as="li" variant="small" className="p-1 font-medium">
         <Link
-          href="/siswa/"
+          href="/siswa/visi-misi"
           className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
         >
           Visi & Misi
         </Link>
       </Typography>
-      <Typography as="li" variant="small" className="p-1 font-medium">
+      {/* <Typography as="li" variant="small" className="p-1 font-medium">
         <Link
-          href="/siswa/"
+          href="/siswa/lokasi"
           className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
         >
           Lokasi Sekolah
         </Link>
-      </Typography>
+      </Typography> */}
       <Typography as="li" variant="small" className="p-1 font-medium">
         <Link
           href="/siswa/form-daftar"

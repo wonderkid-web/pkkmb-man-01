@@ -15,12 +15,13 @@ import {
 } from "@heroicons/react/24/solid";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const menuItems = [
   {
     icon: <PresentationChartBarIcon className="h-5 w-5" color="white" />,
     text: "Dashboard",
-    url: "/"
+    url: "/",
   },
   // {
   //   icon: <ShoppingBagIcon className="h-5 w-5" color="white" />,
@@ -29,12 +30,12 @@ const menuItems = [
   {
     icon: <UserCircleIcon className="h-5 w-5" color="white" />,
     text: "Calon Peserta Didik",
-    url:"calon-siswa"
+    url: "calon-siswa",
   },
   {
     icon: <InboxIcon className="h-5 w-5" color="white" />,
     text: "Inbox",
-    url: ""
+    url: "",
   },
   // {
   //   icon: <Cog6ToothIcon className="h-5 w-5" color="white" />,
@@ -43,13 +44,15 @@ const menuItems = [
 ];
 
 const MenuList = () => {
+  const router = useRouter();
+
   return (
     <List>
       {menuItems.map((item, index) => (
         <ListItem key={index} className="hover:bg-primary w-4/5">
           <ListItemPrefix color="white">{item.icon}</ListItemPrefix>
           <Link href={item.url}>
-          <Typography color="white">{item.text}</Typography>
+            <Typography color="white">{item.text}</Typography>
           </Link>
         </ListItem>
       ))}
@@ -58,7 +61,15 @@ const MenuList = () => {
         <ListItemPrefix color="white">
           <PowerIcon className="h-5 w-5" color="white" />
         </ListItemPrefix>
-        <Typography color="white" onClick={()=> signOut()}>Log out</Typography>
+        <Typography
+          color="white"
+          onClick={async () => {
+            router.push("/signin");
+            await signOut();
+          }}
+        >
+          Log out
+        </Typography>
       </ListItem>
     </List>
   );

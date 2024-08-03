@@ -133,14 +133,14 @@ export function Navbar() {
         </Typography>
         {/* <div className="hidden lg:block">{navList}</div> */}
         <div className="flex items-center gap-x-1">
-          <Button
+          {/* <Button
             variant="gradient"
             size="sm"
             className="hidden lg:inline-block"
             color="white"
           >
             <span>Sign in</span>
-          </Button>
+          </Button> */}
         </div>
         <IconButton
           variant="text"

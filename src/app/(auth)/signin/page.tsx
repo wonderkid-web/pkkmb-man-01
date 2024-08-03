@@ -14,7 +14,6 @@ import { NAMA_SEKOLAH } from "@/static";
 function Page() {
   const { handleSubmit, register } = useForm<FormLogin>();
   const router = useRouter();
-  const [user, setUser] = useState<"siswa" | "admin">("siswa");
  
 
   const onSubmit: SubmitHandler<FormLogin> = async (form) => {
@@ -36,8 +35,6 @@ function Page() {
           loading: "Proses Autentikasi...",
           success: (data) => {
             if (data?.ok) {
-              console.log(data)
-
               if(form.NIK?.includes('admin')){
                 router.push("/");
               }else{
