@@ -1,3 +1,5 @@
+import { FirestoreError, WithFieldValue } from "firebase/firestore";
+
 export interface FormData {
     name: string;
     birthDate: string;
@@ -19,4 +21,25 @@ export interface FormData {
     photo: string;
     others: string;
   }
+
+
+  export interface FormLogin {
+    username?: string;
+    NIK?: string;
+    password: string;
+  }
   
+
+  export type Collections = "registered" | "accounts"
+
+  export interface SignupFormData {
+    nik: string;
+    name: string;
+    password: string;
+    phone: string;
+  }
+  
+
+export interface UseCreateDocResult<T> {
+    createDoc: (form: T) => Promise<void>;
+  }

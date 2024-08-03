@@ -1,0 +1,1 @@
+export const NAMA_SEKOLAH = "PKKMB MAN 01 Medan Pancing"
