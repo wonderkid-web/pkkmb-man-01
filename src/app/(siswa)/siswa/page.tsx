@@ -1,11 +1,16 @@
-import React from 'react'
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
+import React from "react";
 
-function page() {
+async function page() {
+  const session = await getServerSession(options);
+
   return (
     <div>
-        <h1 className='text-2xl text-center mt-4'>Halaman Siswa</h1>
+      <pre>{session && JSON.stringify(session, null, 2)}</pre>
+      <h1 className="text-2xl text-center mt-4">Halaman Siswa</h1>
     </div>
-  )
+  );
 }
 
-export default page
+export default page;

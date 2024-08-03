@@ -1,43 +1,55 @@
 "use client";
 
-import { FormData, FormLogin } from "@/types";
+import { FormLogin } from "@/types";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import logo from "/public/logo.png";
 import { NAMA_SEKOLAH } from "@/static";
-import { useGetDocs } from "@/hooks";
 
 function Page() {
   const { handleSubmit, register } = useForm<FormLogin>();
   const router = useRouter();
-  const {data} = useGetDocs<FormData>("accounts")
-
-  useEffect(()=>{
-    console.log(data)
-  },[data])
+  const [user, setUser] = useState<"siswa" | "admin">("siswa");
+ 
 
   const onSubmit: SubmitHandler<FormLogin> = async (form) => {
-    toast.promise(
-      signIn("credentials", {
-        ...form,
-        redirect: false,
-      }),
-      {
-        loading: "Proses Autentikasi...",
-        success: (data) => {
-          if (data?.ok) {
-            router.push("/");
-          }
-          return "Berhasil Login";
-        },
-        error: "Gagal Login, pastiin NIK & Password Kamu bener",
-      }
-    );
+    // if(user === "admin"){
+    //   if(form.NIK === "admin" && form.password === "admin123"){
+    //     toast.success("Berhasil Masuk")
+    //     router.push("/")
+    //   }else{
+    //     toast.warning("NIK atau Password kamu salah!")
+    //   }
+
+    // }else{
+      toast.promise(
+        signIn("credentials", {
+          ...form,
+          redirect: false,
+        }),
+        {
+          loading: "Proses Autentikasi...",
+          success: (data) => {
+            if (data?.ok) {
+              console.log(data)
+
+              if(form.NIK?.includes('admin')){
+                router.push("/");
+              }else{
+                router.push("/siswa");
+              }
+            }
+            return "Berhasil Login";
+          },
+          error: "Gagal Login, pastiin NIK & Password Kamu bener",
+        }
+      );
+    // }
   };
 
   return (
@@ -102,7 +114,7 @@ function Page() {
               />
             </div>
             {/* PASSWORD */}
-            <div className="flex items-center border-2 py-2 px-3 rounded-md">
+            <div className="flex items-center border-2 py-2 px-3 rounded-md mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-gray-400"
@@ -123,6 +135,14 @@ function Page() {
                 {...register("password")}
               />
             </div>
+
+            {/* <Select
+              value={user}
+              onChange={(val) => setUser(val as "siswa" | "admin")}
+            >
+              <Option value="siswa">Siswa</Option>
+              <Option value="admin">Admin</Option>
+            </Select> */}
 
             <button
               type="submit"

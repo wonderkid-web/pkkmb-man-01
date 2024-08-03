@@ -1,3 +1,5 @@
+import { database } from "@/libs/firebase";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -14,14 +16,45 @@ export const options: AuthOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
+      // @ts-ignore
       async authorize(credentials, req) {
+        // @ts-ignore
+        if (credentials) {
+          //  console.log(credentials)
+          // @ts-ignore
+          if (!credentials.NIK.includes("admin")) {
+            const coll = collection(database, "accounts");
 
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+            const q = query(
+              coll,
+              // @ts-ignore
+              where("nik", "==", credentials.NIK),
+              // @ts-ignore
+              where("password", "==", credentials.password)
+            );
 
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
+            const rawDoc = await getDocs(q);
+
+            const user = rawDoc.docs.map((d) => d.data());
+
+            // Add logic here to look up the user from the credentials supplied
+
+            if (!rawDoc.empty) {
+              // Any object returned will be saved in `user` property of the JWT
+              return { ...user, role: "siswa" };
+            }
+          } else {
+            if (
+              // @ts-ignore
+              credentials.NIK === "admin" &&
+              credentials.password === "admin123"
+            ) {
+              return {
+                name: "admin",
+                role: "admin",
+              };
+            }
+          }
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -31,7 +64,25 @@ export const options: AuthOptions = {
       },
     }),
   ],
-  pages:{
-    signIn: "/signin"
-  }
+  pages: {
+    signIn: "/signin",
+  },
+
+  callbacks: {
+    async jwt({ user, token }) {
+      if (user) {
+        console.log("JWT")
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      console.log("session")
+      if(token){
+        session.user = token;
+      }
+
+      return session;
+    },
+  },
 };

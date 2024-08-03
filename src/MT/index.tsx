@@ -22,7 +22,9 @@ import {
   ButtonGroup,
   Tooltip,
   Stepper,
-  Step
+  Step,
+  Select,
+  Option
 } from "@material-tailwind/react";
 
 export {
@@ -47,5 +49,7 @@ export {
   ButtonGroup,
   Tooltip,
   Stepper,
-  Step
+  Step,
+  Select,
+  Option
 };
