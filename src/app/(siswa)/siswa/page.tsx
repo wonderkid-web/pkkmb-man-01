@@ -1,9 +1,10 @@
 import Link from "next/link";
-import foto1 from "/public/foto1.jpg"
-import foto2 from "/public/foto2.jpg"
-import foto3 from "/public/foto3.jpg"
+import foto1 from "/public/foto1.jpg";
+import foto2 from "/public/foto2.jpg";
+import foto3 from "/public/foto3.jpg";
 import Image from "next/image";
 import Maps from "@/components/Maps";
+import VisiMisi from "@/components/VisiMisi";
 
 export default function Home() {
   const hubungiAdmin = () => {
@@ -24,7 +25,8 @@ export default function Home() {
               MAN 01 Medan
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-              Menyediakan pendidikan berkualitas untuk generasi muda dengan berbagai fasilitas dan program unggulan.
+              Menyediakan pendidikan berkualitas untuk generasi muda dengan
+              berbagai fasilitas dan program unggulan.
             </p>
             <Link
               href={hubungiAdmin()}
@@ -55,7 +57,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
+
       <section className="bg-gray-50 dark:bg-gray-800">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
@@ -63,7 +65,8 @@ export default function Home() {
               Fasilitas Unggulan MAN 01 Medan
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-              Sekolah kami dilengkapi dengan fasilitas modern untuk mendukung proses belajar mengajar yang optimal.
+              Sekolah kami dilengkapi dengan fasilitas modern untuk mendukung
+              proses belajar mengajar yang optimal.
             </p>
           </div>
           <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -86,7 +89,8 @@ export default function Home() {
                 Laboratorium Modern
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Dilengkapi dengan peralatan terkini untuk menunjang eksperimen dan penelitian siswa.
+                Dilengkapi dengan peralatan terkini untuk menunjang eksperimen
+                dan penelitian siswa.
               </p>
             </div>
             <div>
@@ -100,9 +104,12 @@ export default function Home() {
                   <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">Perpustakaan</h3>
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
+                Perpustakaan
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Menyediakan koleksi buku dan literatur yang lengkap untuk mendukung kebutuhan belajar siswa.
+                Menyediakan koleksi buku dan literatur yang lengkap untuk
+                mendukung kebutuhan belajar siswa.
               </p>
             </div>
             <div>
@@ -120,15 +127,18 @@ export default function Home() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">Ruang Kelas Digital</h3>
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
+                Ruang Kelas Digital
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Dilengkapi dengan teknologi digital untuk mendukung pembelajaran interaktif dan berbasis teknologi.
+                Dilengkapi dengan teknologi digital untuk mendukung pembelajaran
+                interaktif dan berbasis teknologi.
               </p>
             </div>
           </div>
         </div>
       </section>
-      
+
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
@@ -136,18 +146,35 @@ export default function Home() {
               Galeri MAN 01 Medan
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-              Berikut adalah beberapa gambar yang menggambarkan kehidupan di MAN 01 Medan.
+              Berikut adalah beberapa gambar yang menggambarkan kehidupan di MAN
+              01 Medan.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Image src={foto2} alt="Gambar 1" className="w-full h-auto object-cover" />
-            <Image src={foto3} alt="Gambar 2" className="w-full h-auto object-cover" />
-            <Image src={foto1} alt="Gambar 3" className="w-full h-auto object-cover" />
+            <Image
+              src={foto2}
+              alt="Gambar 1"
+              className="w-full h-auto object-cover"
+            />
+            <Image
+              src={foto3}
+              alt="Gambar 2"
+              className="w-full h-auto object-cover"
+            />
+            <Image
+              src={foto1}
+              alt="Gambar 3"
+              className="w-full h-auto object-cover"
+            />
           </div>
         </div>
       </section>
-      
+
       <section className="bg-gray-50 dark:bg-gray-800">
+      <VisiMisi />
+      </section>
+
+      <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
