@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import {
@@ -19,18 +19,37 @@ import {
 } from "@material-tailwind/react";
 import { FormData } from "@/types";
 import { IdentificationIcon, UsersIcon } from "@heroicons/react/24/solid";
+import FileUpload from "@/components/FileUpload";
+import { addDoc, collection } from "firebase/firestore";
+import { database } from "@/libs/firebase";
+import { toast } from "sonner";
+import { useCreateForm } from "@/hooks";
 
 const Register = () => {
   const [activeStep, setActiveStep] = React.useState<0 | 1 | 2>(0);
+  const [docsUrl, setDocsUrl] = useState<[string, string, string, string] | []>(
+    []
+  );
+  const { createForm } = useCreateForm();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      if (data) {
+        // @ts-ignore
+        createForm({ ...data, docsUrl } as FormData);
+      }
+    } catch (error) {
+      toast.error("Gagal Upload Form");
+    }
+
+    reset()
   };
 
   return (
@@ -160,6 +179,23 @@ const Register = () => {
                     {errors.name && (
                       <p className="text-red-600 text-sm mt-1">
                         {errors.name.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <Input
+                      crossOrigin=""
+                      type="text"
+                      label="NIK Siswa"
+                      {...register("nik", {
+                        required: "NIK wajib diisi!",
+                      })}
+                      error={!!errors.name}
+                    />
+                    {errors.nik && (
+                      <p className="text-red-600 text-sm mt-1">
+                        {errors.nik.message}
                       </p>
                     )}
                   </div>
@@ -409,7 +445,9 @@ const Register = () => {
                     C. Persyaratan yang diserahkan
                   </Typography>
 
-                  <div className="form-group">
+                  <FileUpload setDocsUrl={setDocsUrl} />
+
+                  {/* <div className="form-group">
                     <Input
                       crossOrigin=""
                       type="text"
@@ -424,6 +462,22 @@ const Register = () => {
                         {errors.certificateCopy.message}
                       </p>
                     )}
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="file"
+                      id="photo"
+                      onChange={handleFileChange}
+                      // onChange={handleFileChange}
+                      className="p-3 border border-gray-300 rounded-md"
+                      label="Foto Copy Ijazah dan Nilai"
+                      {...register("certificateCopy", {
+                        required: "Foto Copy Ijazah dan Nilai wajib diisi",
+                      })}
+                      // @ts-ignore
+                      error={!!errors.certificateCopy}
+                    />
                   </div>
 
                   <div className="form-group">
@@ -492,7 +546,7 @@ const Register = () => {
                         {errors.others.message}
                       </p>
                     )}
-                  </div>
+                  </div> */}
                 </fieldset>
               )}
 
@@ -568,11 +622,11 @@ function StepperWithContent({
               color={activeStep === 1 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-               Formulir Data diri Orang tua Siswa/i.
+              Formulir Data diri Orang tua Siswa/i.
             </Typography>
           </div>
         </Step>
-        
+
         <Step onClick={() => setActiveStep(2)}>
           <IdentificationIcon className="h-5 w-5" />
           <div className="absolute -bottom-[4.5rem] w-max text-center">
@@ -600,6 +654,8 @@ function StepperWithContent({
           Next
         </Button>
       </div>
+
+      <div className="mt-32 flex justify-between">{/* <UploadPage /> */}</div>
     </div>
   );
 }

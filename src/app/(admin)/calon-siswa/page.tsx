@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
@@ -19,76 +19,34 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import whatsapp from "/public/whatsapp.png"
- 
+import whatsapp from "/public/whatsapp.png";
+import { useEffect, useState } from "react";
+import { useGetDocs } from "@/hooks";
+import { FormData } from "@/types";
+import { useSession } from "next-auth/react";
+
 const TABS = [
   {
-    label: "All",
-    value: "all",
+    label: "Valid",
+    value: "valid",
   },
   {
-    label: "Monitored",
-    value: "monitored",
+    label: "TidakValid",
+    value: "unvalid",
   },
-  {
-    label: "Unmonitored",
-    value: "unmonitored",
-  },
+
 ];
- 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
- 
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
-];
- 
+
+const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
+
+
 export default function CalonSiswa() {
+  const { data } = useGetDocs<FormData>("form_pendaftaran");
+  const session = useSession()
+
   return (
-    <Card className="h-full w-full">
+    <Card className="h-full w-full"> 
+
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
@@ -100,9 +58,9 @@ export default function CalonSiswa() {
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <Button variant="outlined" color="teal" size="sm">
+            {/* <Button variant="outlined" color="teal" size="sm">
               view all
-            </Button>
+            </Button> */}
             <Button color="teal" className="flex items-center gap-3" size="sm">
               <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Print
             </Button>
@@ -110,7 +68,7 @@ export default function CalonSiswa() {
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <Tabs value="all" className="w-full md:w-max">
+          <Tabs value="valid" className="w-full md:w-max">
             <TabsHeader>
               {TABS.map(({ label, value }) => (
                 <Tab key={value} value={value}>
@@ -121,7 +79,7 @@ export default function CalonSiswa() {
           </Tabs>
           <div className="w-full md:w-72">
             <Input
-            crossOrigin=""
+              crossOrigin=""
               label="Search"
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
             />
@@ -150,9 +108,11 @@ export default function CalonSiswa() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ img, name, email, job, org, online, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+          
+            {data.map(
+              // ({ img, name, email, job, org, online, date }, index) => {
+              ({ docsUrl, nik, name, phone, education, fatherName, birthDate, status }, index) => {
+                const isLast = index === data.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
@@ -161,7 +121,7 @@ export default function CalonSiswa() {
                   <tr key={name}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
-                        <Avatar src={img} alt={name} size="sm" />
+                        <Avatar src={docsUrl[0]} alt={name} size="sm" />
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -175,7 +135,7 @@ export default function CalonSiswa() {
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {email}
+                            {phone}
                           </Typography>
                         </div>
                       </div>
@@ -187,14 +147,14 @@ export default function CalonSiswa() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {job}
+                          {education}
                         </Typography>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {org}
+                          {fatherName}
                         </Typography>
                       </div>
                     </td>
@@ -203,8 +163,8 @@ export default function CalonSiswa() {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={online ? "online" : "offline"}
-                          color={online ? "green" : "blue-gray"}
+                          value={status ? "Valid" : "Tidak Valid"}
+                          className={`${status ? "bg-green-500" : "bg-gray-500 text-black"} text-white`}
                         />
                       </div>
                     </td>
@@ -214,21 +174,20 @@ export default function CalonSiswa() {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {date}
+                        {birthDate}
                       </Typography>
                     </td>
                     <td className={classes}>
                       <Tooltip content="Detail User">
-                        <Link href={'/calon-siswa/21'}>
+                        <Link href={`/calon-siswa/${nik}`}>
                         <IconButton variant="text">
                           <PencilIcon className="h-4 w-4" />
                         </IconButton>
                         </Link>
                       </Tooltip>
                       <Tooltip content="Kirim Pesan Siswa">
-                        <Link href={'/calon-siswa/21'}>
+                        <Link href={`/calon-siswa/${phone}`}>
                         <IconButton variant="text">
-                          {/* <PencilIcon className="h-4 w-4" /> */}
                           <div className="relative h-5 w-5">
                             <Image src={whatsapp} alt="whatsapp icon" objectFit="cover" />
                           </div>

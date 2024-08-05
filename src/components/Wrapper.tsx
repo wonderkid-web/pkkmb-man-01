@@ -5,11 +5,13 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { Sidebar } from "./layout/Sidebar";
 import { Navbar } from "./layout/Navbar";
 import theme from "@material-tailwind/react/theme";
+import { Toaster } from "sonner";
 
 function Wrapper({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
       <ThemeProvider>
+        <Toaster richColors={true} />
         <div className="container min-h-screen max-h-screen overflow-auto  min-w-full bg-teal-800 p-2">
           <Sidebar />
           <Navbar />

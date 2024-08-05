@@ -7,9 +7,7 @@ import {
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
-  ShoppingBagIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
@@ -32,11 +30,11 @@ const menuItems = [
     text: "Calon Peserta Didik",
     url: "calon-siswa",
   },
-  {
-    icon: <InboxIcon className="h-5 w-5" color="white" />,
-    text: "Inbox",
-    url: "",
-  },
+  // {
+  //   icon: <InboxIcon className="h-5 w-5" color="white" />,
+  //   text: "Inbox",
+  //   url: "",
+  // },
   // {
   //   icon: <Cog6ToothIcon className="h-5 w-5" color="white" />,
   //   text: 'Settings',

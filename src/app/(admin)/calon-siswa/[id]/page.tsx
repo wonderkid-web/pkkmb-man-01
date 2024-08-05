@@ -1,97 +1,162 @@
-import React from "react";
-import { Card, CardBody, Typography, ButtonGroup, List, ListItem, Button } from "@/MT";
+"use client";
+import {
+  Card,
+  CardBody,
+  Typography,
+  ButtonGroup,
+  List,
+  ListItem,
+  Button,
+} from "@/MT";
 import { FormData } from "@/types";
+import { useGetDoc } from "@/hooks";
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import { database } from "@/libs/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { toast } from "sonner";
 
-interface DetailsProps {
-  data: FormData;
-}
+const Details = () => {
+  const { id } = useParams<{ id: string }>();
 
-const Details: React.FC<DetailsProps> = ({ data }) => {
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Card className="w-full">
-        <CardBody>
-          <Typography variant="h4" className="mb-6 text-center">
-            Detail Pendaftaran Siswa Baru
-          </Typography>
+  const { data } = useGetDoc<FormData>(id);
 
-          <Typography variant="h5" className="font-semibold">
-            A. Biodata Anak
-          </Typography>
-          <List className="mb-6">
-            <ListItem>Nama Calon Siswa: {data.name}</ListItem>
-            <ListItem>Tempat/Tanggal Lahir: {data.birthDate}</ListItem>
-            <ListItem>Agama: {data.religion}</ListItem>
-            <ListItem>Alamat: {data.address}</ListItem>
-            <ListItem>Nomor Telp/HP: {data.phone}</ListItem>
-            <ListItem>Masuk Kelas: {data.grade}</ListItem>
-            <ListItem>Bagian (Kekhususan): {data.specialization}</ListItem>
-          </List>
+  const updateStatus = async (status: boolean) => {
+    const docRef = doc(database, "form_pendaftaran", id);
 
-          <Typography variant="h5" className="font-semibold">
-            B. Nama Orang Tua/Wali Murid
-          </Typography>
-          <List className="mb-6">
-            <ListItem>Nama Ayah: {data.fatherName}</ListItem>
-            <ListItem>Nama Ibu: {data.motherName}</ListItem>
-            <ListItem>
-              Tempat/Tanggal Lahir Ayah: {data.fatherBirthDate}
-            </ListItem>
-            <ListItem>Pendidikan Tertinggi: {data.education}</ListItem>
-            <ListItem>Pekerjaan: {data.occupation}</ListItem>
-            <ListItem>Alamat: {data.parentAddress}</ListItem>
-            <ListItem>Nomor Telp/HP: {data.parentPhone}</ListItem>
-          </List>
+    toast.promise(
+      updateDoc(docRef, {
+        status,
+      }),
+      {
+        loading: "Update Status Dokumen",
+        success: "Berhasil Merubah Status",
+      }
+    );
+  };
 
-          <Typography variant="h5" className="font-semibold">
-            C. Persyaratan yang diserahkan
-          </Typography>
-          <List className="mb-6">
-            <ListItem>
-              Foto Copy Ijazah dan Nilai: {data.certificateCopy}
-            </ListItem>
-            <ListItem>
-              Foto Copy Akta Kelahiran: {data.birthCertificateCopy}
-            </ListItem>
-            <ListItem>Foto Copy Kartu Keluarga: {data.familyCardCopy}</ListItem>
-            <ListItem>Pas Foto ukuran 3x4 cm: {data.photo}</ListItem>
-            <ListItem>Lain-lain: {data.others}</ListItem>
-          </List>
+  if (data)
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <Card className="w-full max-w-4xl mx-4 shadow-lg rounded-lg overflow-hidden">
+          <CardBody className="bg-white p-6">
+            <Typography
+              variant="h4"
+              className="mb-6 text-center text-green-800"
+            >
+              Detail Pendaftaran Siswa Baru
+            </Typography>
 
-          <ButtonGroup fullWidth={true}>
-            <Button className="!bg-green-500">Data Lengkap</Button>
-            <Button className="!bg-red-500" >Data Tidak Lengkap</Button>
-          </ButtonGroup>
-          
-        </CardBody>
-      </Card>
-    </div>
-  );
+            <div className="mb-8">
+              <Typography variant="h5" className="font-semibold text-green-600">
+                A. Biodata Anak
+              </Typography>
+              <List className="space-y-2">
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nama Calon Siswa:</span>{" "}
+                  {data?.name}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Tempat/Tanggal Lahir:</span>{" "}
+                  {data?.birthDate}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Agama:</span> {data?.religion}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Alamat:</span> {data?.address}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nomor Telp/HP:</span>{" "}
+                  {data?.phone}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Masuk Kelas:</span>{" "}
+                  {data?.grade}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Bagian (Kekhususan):</span>{" "}
+                  {data?.specialization}
+                </ListItem>
+              </List>
+            </div>
+
+            <div className="mb-8">
+              <Typography variant="h5" className="font-semibold text-green-600">
+                B. Nama Orang Tua/Wali Murid
+              </Typography>
+              <List className="space-y-2">
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nama Ayah:</span>{" "}
+                  {data?.fatherName}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nama Ibu:</span>{" "}
+                  {data?.motherName}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">
+                    Tempat/Tanggal Lahir Ayah:
+                  </span>{" "}
+                  {data?.fatherBirthDate}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Pendidikan Tertinggi:</span>{" "}
+                  {data?.education}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Pekerjaan:</span>{" "}
+                  {data?.occupation}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Alamat:</span>{" "}
+                  {data?.parentAddress}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nomor Telp/HP:</span>{" "}
+                  {data?.parentPhone}
+                </ListItem>
+              </List>
+            </div>
+
+            <div className="mb-8">
+              <Typography variant="h5" className="font-semibold text-green-600">
+                C. Persyaratan yang diserahkan
+              </Typography>
+              <List className="grid grid-cols-2 gap-4">
+                {data?.docsUrl?.map((url, index) => (
+                  <ListItem key={index} className="flex justify-center">
+                    <Image
+                      src={url}
+                      alt={`foto-${index}`}
+                      width={100}
+                      height={100}
+                      className="rounded-lg shadow-md"
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+
+            <ButtonGroup fullWidth className="mt-4">
+              <Button
+                onClick={() => updateStatus(true)}
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold"
+              >
+                Data Lengkap
+              </Button>
+              <Button
+                onClick={() => updateStatus(false)}
+                className="bg-red-500 hover:bg-red-600 text-white font-semibold"
+              >
+                Data Tidak Lengkap
+              </Button>
+            </ButtonGroup>
+          </CardBody>
+        </Card>
+      </div>
+    );
 };
-
-// Contoh penggunaan komponen Details dengan data dummy
-const data: FormData = {
-  name: "John Doe",
-  birthDate: "1 Januari 2000",
-  religion: "Islam",
-  address: "Jl. Merdeka No. 1",
-  phone: "08123456789",
-  grade: "1",
-  specialization: "IPA",
-  fatherName: "Doe Senior",
-  motherName: "Jane Doe",
-  fatherBirthDate: "1 Januari 1970",
-  education: "S2",
-  occupation: "Pegawai Negeri",
-  parentAddress: "Jl. Merdeka No. 1",
-  parentPhone: "08123456789",
-  certificateCopy: "Ada",
-  birthCertificateCopy: "Ada",
-  familyCardCopy: "Ada",
-  photo: "3 buah",
-  others: "Tidak ada",
-};
-
 export default function Page() {
-  return <Details data={data} />;
+  return <Details />;
 }

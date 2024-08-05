@@ -25,10 +25,9 @@ function Page() {
 
   const {createDoc} = useCreateDoc<SignupFormData>("accounts")
 
-  const router = useRouter();
-
   const onSubmit: SubmitHandler<SignupFormData> = async (form) => {
-
+    
+    // @ts-ignore
     await createDoc(form)
 
     reset()

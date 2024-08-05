@@ -1,4 +1,3 @@
-import { FirestoreError, WithFieldValue } from "firebase/firestore";
 
 export interface FormData {
     name: string;
@@ -20,6 +19,9 @@ export interface FormData {
     familyCardCopy: string;
     photo: string;
     others: string;
+    nik: string;
+    status: boolean;
+    docsUrl: [string, string, string, string] 
   }
 
 
@@ -30,7 +32,7 @@ export interface FormData {
   }
   
 
-  export type Collections = "registered" | "accounts"
+  export type Collections = "registered" | "accounts" | "form_pendaftaran"
 
   export interface SignupFormData {
     nik: string;
@@ -41,5 +43,12 @@ export interface FormData {
   
 
 export interface UseCreateDocResult<T> {
-    createDoc: (form: T) => Promise<void>;
+    createDoc?: (form: T) => Promise<void>;
+    createForm?: (form: T) => Promise<void>;
+
   }
+
+export interface File {
+  name: string;
+  file: string | ArrayBuffer | null;
+}
