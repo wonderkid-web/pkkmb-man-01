@@ -9,6 +9,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import logo from "/public/logo.png";
 import Link from "next/link";
+import { PowerIcon } from "@heroicons/react/24/solid";
+import SignOutButton from "./SignOutButton";
 
 function NavList() {
   return (
@@ -45,6 +47,9 @@ function NavList() {
           Form Pendaftaran
         </Link>
       </Typography>
+
+
+     <SignOutButton />
     </ul>
   );
 }

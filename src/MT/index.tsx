@@ -24,7 +24,13 @@ import {
   Stepper,
   Step,
   Select,
-  Option
+  Option,
+  Timeline,
+  TimelineItem,
+  TimelineConnector,
+  TimelineHeader,
+  TimelineIcon,
+  TimelineBody,
 } from "@material-tailwind/react";
 
 export {
@@ -51,5 +57,11 @@ export {
   Stepper,
   Step,
   Select,
-  Option
+  Option,
+  Timeline,
+  TimelineItem,
+  TimelineConnector,
+  TimelineHeader,
+  TimelineIcon,
+  TimelineBody,
 };

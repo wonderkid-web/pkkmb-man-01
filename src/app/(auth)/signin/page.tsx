@@ -1,6 +1,6 @@
 "use client";
 
-import { FormLogin } from "@/types";
+import {  User } from "@/types";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,11 +12,11 @@ import logo from "/public/logo.png";
 import { NAMA_SEKOLAH } from "@/static";
 
 function Page() {
-  const { handleSubmit, register } = useForm<FormLogin>();
+  const { handleSubmit, register } = useForm<User>();
   const router = useRouter();
  
 
-  const onSubmit: SubmitHandler<FormLogin> = async (form) => {
+  const onSubmit: SubmitHandler<User> = async (form) => {
     // if(user === "admin"){
     //   if(form.NIK === "admin" && form.password === "admin123"){
     //     toast.success("Berhasil Masuk")

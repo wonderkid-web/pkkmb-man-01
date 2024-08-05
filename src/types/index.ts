@@ -25,7 +25,7 @@ export interface FormData {
   }
 
 
-  export interface FormLogin {
+  export interface User {
     username?: string;
     NIK?: string;
     password: string;

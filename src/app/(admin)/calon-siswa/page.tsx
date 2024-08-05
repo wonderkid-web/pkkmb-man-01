@@ -23,7 +23,6 @@ import whatsapp from "/public/whatsapp.png";
 import { useEffect, useState } from "react";
 import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
-import { useSession } from "next-auth/react";
 
 const TABS = [
   {
@@ -34,19 +33,16 @@ const TABS = [
     label: "TidakValid",
     value: "unvalid",
   },
-
 ];
 
 const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
 
-
 export default function CalonSiswa() {
   const { data } = useGetDocs<FormData>("form_pendaftaran");
-  const session = useSession()
+  const [filter, setFiltered] = useState("");
 
   return (
-    <Card className="h-full w-full"> 
-
+    <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
@@ -67,8 +63,8 @@ export default function CalonSiswa() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <Tabs value="valid" className="w-full md:w-max">
+        <div className="flex flex-col items-center justify-end gap-4 md:flex-row">
+          {/* <Tabs value="valid" className="w-full md:w-max">
             <TabsHeader>
               {TABS.map(({ label, value }) => (
                 <Tab key={value} value={value}>
@@ -76,11 +72,13 @@ export default function CalonSiswa() {
                 </Tab>
               ))}
             </TabsHeader>
-          </Tabs>
+          </Tabs> */}
           <div className="w-full md:w-72">
             <Input
+              onChange={(e) => setFiltered(e.currentTarget.value)}
+              color="green"
               crossOrigin=""
-              label="Search"
+              label="Masukan Nama atau NIK Siswa/i"
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
             />
           </div>
@@ -108,112 +106,140 @@ export default function CalonSiswa() {
             </tr>
           </thead>
           <tbody>
-          
-            {data.map(
-              // ({ img, name, email, job, org, online, date }, index) => {
-              ({ docsUrl, nik, name, phone, education, fatherName, birthDate, status }, index) => {
-                const isLast = index === data.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
- 
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <Avatar src={docsUrl[0]} alt={name} size="sm" />
+            {data
+              .filter((d) =>
+                filter
+                  ? d.name.toLowerCase().includes(filter.toLowerCase()) ||
+                    d.nik.includes(filter)
+                  : data
+              )
+              .map(
+                // ({ img, name, email, job, org, online, date }, index) => {
+                (
+                  {
+                    docsUrl,
+                    nik,
+                    name,
+                    phone,
+                    education,
+                    fatherName,
+                    birthDate,
+                    status,
+                  },
+                  index
+                ) => {
+                  const isLast = index === data.length - 1;
+                  const classes = isLast
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
+
+                  return (
+                    <tr key={name}>
+                      <td className={classes}>
+                        <div className="flex items-center gap-3">
+                          <Avatar src={docsUrl[0]} alt={name} size="sm" />
+                          <div className="flex flex-col">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {name}
+                            </Typography>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal opacity-70"
+                            >
+                              {phone}
+                            </Typography>
+                          </div>
+                        </div>
+                      </td>
+                      <td className={classes}>
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {name}
+                            {nik}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {phone}
+                            {fatherName}
                           </Typography>
                         </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex flex-col">
+                      </td>
+                      <td className={classes}>
+                        <div className="w-max">
+                          <Chip
+                            variant="ghost"
+                            size="sm"
+                            value={status ? "Valid" : "Tidak Valid"}
+                            className={`${
+                              status ? "bg-green-500" : "bg-gray-500 text-black"
+                            } text-white`}
+                          />
+                        </div>
+                      </td>
+                      <td className={classes}>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {education}
+                          {birthDate}
                         </Typography>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal opacity-70"
-                        >
-                          {fatherName}
-                        </Typography>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          variant="ghost"
-                          size="sm"
-                          value={status ? "Valid" : "Tidak Valid"}
-                          className={`${status ? "bg-green-500" : "bg-gray-500 text-black"} text-white`}
-                        />
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {birthDate}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Tooltip content="Detail User">
-                        <Link href={`/calon-siswa/${nik}`}>
-                        <IconButton variant="text">
-                          <PencilIcon className="h-4 w-4" />
-                        </IconButton>
-                        </Link>
-                      </Tooltip>
-                      <Tooltip content="Kirim Pesan Siswa">
-                        <Link href={`/calon-siswa/${phone}`}>
-                        <IconButton variant="text">
-                          <div className="relative h-5 w-5">
-                            <Image src={whatsapp} alt="whatsapp icon" objectFit="cover" />
-                          </div>
-                        </IconButton>
-                        </Link>
-                      </Tooltip>
-                    </td>
-                  </tr>
-                );
-              },
-            )}
+                      </td>
+                      <td className={classes}>
+                        <Tooltip content="Detail User">
+                          <Link href={`/calon-siswa/${nik}`}>
+                            <IconButton variant="text">
+                              <PencilIcon className="h-4 w-4" />
+                            </IconButton>
+                          </Link>
+                        </Tooltip>
+                        <Tooltip content="Kirim Pesan Siswa">
+                          <Link href={`/calon-siswa/${phone}`}>
+                            <IconButton variant="text">
+                              <div className="relative h-5 w-5">
+                                <Image
+                                  src={whatsapp}
+                                  alt="whatsapp icon"
+                                  objectFit="cover"
+                                />
+                              </div>
+                            </IconButton>
+                          </Link>
+                        </Tooltip>
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
           </tbody>
         </table>
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+        <Typography variant="small" color="blue-gray" className="font-bold">
+          {/* Page 1 of 10 */}
+          Total Pendaftar:{" "}
+          <span className="font-bold bg-green-800 text-white p-1 rounded-sm">
+            {data.length}
+          </span>
         </Typography>
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <Button variant="outlined" size="sm">
             Previous
           </Button>
           <Button variant="outlined" size="sm">
             Next
           </Button>
-        </div>
+        </div> */}
       </CardFooter>
     </Card>
   );

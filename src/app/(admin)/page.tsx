@@ -1,12 +1,11 @@
-import { Typography } from "@/MT/index";
+import React from 'react'
 
-export default function Home() {
+type Props = {}
+
+function page({}: Props) {
   return (
-    <>
-      <Typography variant="h2" color="teal">
-        Dashboard
-      </Typography>
-
-    </>
-  );
+    <div>page</div>
+  )
 }
+
+export default page

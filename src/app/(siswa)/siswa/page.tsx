@@ -5,6 +5,7 @@ import foto3 from "/public/foto3.jpg";
 import Image from "next/image";
 import Maps from "@/components/Maps";
 import VisiMisi from "@/components/VisiMisi";
+import Timelines from "@/components/Timelines";
 
 export default function Home() {
   const hubungiAdmin = () => {
@@ -26,7 +27,7 @@ export default function Home() {
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
               Menyediakan pendidikan berkualitas untuk generasi muda dengan
-              berbagai fasilitas dan program unggulan.
+              berbagai fasilitas dan program unggulan. 🌟
             </p>
             <Link
               href={hubungiAdmin()}
@@ -66,7 +67,7 @@ export default function Home() {
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
               Sekolah kami dilengkapi dengan fasilitas modern untuk mendukung
-              proses belajar mengajar yang optimal.
+              proses belajar mengajar yang optimal. 💻
             </p>
           </div>
           <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -147,7 +148,7 @@ export default function Home() {
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
               Berikut adalah beberapa gambar yang menggambarkan kehidupan di MAN
-              01 Medan.
+              01 Medan. ❤️
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -171,17 +172,21 @@ export default function Home() {
       </section>
 
       <section className="bg-gray-50 dark:bg-gray-800">
-      <VisiMisi />
+        <VisiMisi />
       </section>
 
       <section className="bg-white dark:bg-gray-900">
+        <Timelines />
+      </section>
+
+      <section className="bg-gray-50 dark:bg-gray-800">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
               Lokasi MAN 01 Medan
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-              Temukan kami di peta berikut ini.
+              Temukan kami di peta berikut ini. 📌
             </p>
           </div>
           <Maps />

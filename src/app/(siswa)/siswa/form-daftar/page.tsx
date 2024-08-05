@@ -54,7 +54,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* <div className="w-full px-24 py-4">
+      {/* <div className="w-full px-24 py-4 h-[200px]">
         <div className="relative flex items-center justify-between w-full">
           <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-gray-300"></div>
           <div className="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-gray-900 transition-all duration-500"></div>
@@ -154,7 +154,7 @@ const Register = () => {
         setActiveStep={setActiveStep}
       />
       <div className="flex justify-center items-center ">
-        <Card className="w-full max-w-3xl">
+        <Card className="w-full max-w-3xl ">
           <CardBody>
             <Typography variant="h4" className="mb-6 text-center">
               FORMULIR PENDAFTARAN SISWA BARU
@@ -585,7 +585,7 @@ function StepperWithContent({
   const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
 
   return (
-    <div className="w-full px-24 py-4">
+    <div className="w-full px-24 py-4 h-[300px]">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
