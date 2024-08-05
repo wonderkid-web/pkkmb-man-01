@@ -1,10 +1,13 @@
+import OverviewCard from '@/components/OverviewCard'
 import React from 'react'
 
 type Props = {}
 
 function page({}: Props) {
   return (
-    <div>page</div>
+    <div>
+      <OverviewCard />
+    </div>
   )
 }
 
