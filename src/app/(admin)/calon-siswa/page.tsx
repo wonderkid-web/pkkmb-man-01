@@ -23,6 +23,7 @@ import whatsapp from "/public/whatsapp.png";
 import { useEffect, useState } from "react";
 import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const TABS = [
   {
@@ -40,6 +41,7 @@ const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
 export default function CalonSiswa() {
   const { data } = useGetDocs<FormData>("form_pendaftaran");
   const [filter, setFiltered] = useState("");
+  const [parent] = useAutoAnimate()
 
   return (
     <Card className="h-full w-full">
@@ -105,7 +107,7 @@ export default function CalonSiswa() {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody ref={parent}>
             {data
               .filter((d) =>
                 filter

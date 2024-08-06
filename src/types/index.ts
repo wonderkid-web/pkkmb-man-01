@@ -32,7 +32,7 @@ export interface FormData {
   }
   
 
-  export type Collections = "registered" | "accounts" | "form_pendaftaran"
+  export type Collections = "accounts" | "form_pendaftaran"
 
   export interface SignupFormData {
     nik: string;

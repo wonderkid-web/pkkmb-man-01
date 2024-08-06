@@ -4,7 +4,6 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@material-tailwind/react";
 import { Sidebar } from "./layout/Sidebar";
 import { Navbar } from "./layout/Navbar";
-import theme from "@material-tailwind/react/theme";
 import { Toaster } from "sonner";
 
 function Wrapper({ children }: { children: React.ReactNode }) {

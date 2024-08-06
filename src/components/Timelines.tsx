@@ -39,7 +39,7 @@ export default function Timelines() {
                 color="gray"
                 className="font-normal text-gray-600"
               >
-                Buka Halaman Form Pendaftarannya yang ada pada link pojok kanan atas website ini, yang bertuliskan <br />"Form Pendaftaran".
+                Buka Halaman Form Pendaftarannya yang ada pada link pojok kanan atas website ini, yang bertuliskan <br /> {"Form Pendaftaran"}.
               </Typography>
             </TimelineBody>
           </TimelineItem>
@@ -52,7 +52,7 @@ export default function Timelines() {
                 color="blue-gray"
                 className="leading-none"
               >
-                Isi Data Diri kamu pada Form "Data Anak".
+                Isi Data Diri kamu pada Form {"Data Anak"}.
               </Typography>
             </TimelineHeader>
             <TimelineBody className="pb-8">
@@ -74,7 +74,7 @@ export default function Timelines() {
                 color="blue-gray"
                 className="leading-none"
               >
-                Isi Data Diri kamu pada Form "Data Anak".
+                Isi Data Diri kamu pada Form {"Data Anak"}.
               </Typography>
             </TimelineHeader>
             <TimelineBody className="pb-8">
