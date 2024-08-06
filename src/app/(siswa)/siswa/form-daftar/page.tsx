@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import {
@@ -16,17 +16,18 @@ import {
   Button,
   Stepper,
   Step,
-} from "@material-tailwind/react";
+  Select,
+  Option,
+} from "@/MT";
 import { FormData } from "@/types";
 import { IdentificationIcon, UsersIcon } from "@heroicons/react/24/solid";
 import FileUpload from "@/components/FileUpload";
-import { addDoc, collection } from "firebase/firestore";
-import { database } from "@/libs/firebase";
 import { toast } from "sonner";
 import { useCreateForm } from "@/hooks";
 
 const Register = () => {
   const [activeStep, setActiveStep] = React.useState<0 | 1 | 2>(0);
+  const [gender, setGender] = useState<FormData["gender"]>("laki-laki");
   const [docsUrl, setDocsUrl] = useState<[string, string, string, string] | []>(
     []
   );
@@ -49,7 +50,7 @@ const Register = () => {
       toast.error("Gagal Upload Form");
     }
 
-    reset()
+    reset();
   };
 
   return (
@@ -290,20 +291,22 @@ const Register = () => {
                   </div>
 
                   <div className="form-group">
-                    <Input
+                    <Select
+                      onChange={(val) =>
+                        setGender(val as "laki-laki" | "perempuan")
+                      }
+                      defaultValue={gender}
+                      label="Select Version"
+                      error={!!errors.specialization}
+                    >
+                      <Option value="laki-laki">Laki-laki</Option>
+                      <Option value="perempuan">Perempuan</Option>
+                    </Select>
+                    {/* <Input
                       crossOrigin=""
                       type="text"
                       label="Bagian (Kekhususan)"
-                      {...register("specialization", {
-                        required: "Bagian (Kekhususan) wajib diisi",
-                      })}
-                      error={!!errors.specialization}
-                    />
-                    {errors.specialization && (
-                      <p className="text-red-600 text-sm mt-1">
-                        {errors.specialization.message}
-                      </p>
-                    )}
+                    /> */}
                   </div>
                 </fieldset>
               )}

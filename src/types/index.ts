@@ -18,7 +18,7 @@ export interface FormData {
     birthCertificateCopy: string;
     familyCardCopy: string;
     photo: string;
-    others: string;
+    gender: "laki-laki" | "perempuan";
     nik: string;
     status: boolean;
     docsUrl: [string, string, string, string] 

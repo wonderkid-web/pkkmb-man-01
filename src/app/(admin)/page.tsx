@@ -5,7 +5,7 @@ type Props = {}
 
 function page({}: Props) {
   return (
-    <div>
+    <div className='min-h-full'>
       <OverviewCard />
     </div>
   )
