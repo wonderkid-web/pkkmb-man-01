@@ -20,7 +20,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import whatsapp from "/public/whatsapp.png";
-import { useEffect, useState } from "react";
+import { ReactInstance, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -41,7 +42,12 @@ const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
 export default function CalonSiswa() {
   const { data } = useGetDocs<FormData>("form_pendaftaran");
   const [filter, setFiltered] = useState("");
-  const [parent] = useAutoAnimate()
+  const [parent] = useAutoAnimate();
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: (): ReactInstance | null =>
+      componentRef.current! as ReactInstance | null,
+  });
 
   return (
     <Card className="h-full w-full">
@@ -59,7 +65,12 @@ export default function CalonSiswa() {
             {/* <Button variant="outlined" color="teal" size="sm">
               view all
             </Button> */}
-            <Button color="teal" className="flex items-center gap-3" size="sm">
+            <Button
+              color="teal"
+              className="flex items-center gap-3"
+              size="sm"
+              onClick={handlePrint}
+            >
               <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Print
             </Button>
           </div>
@@ -87,7 +98,8 @@ export default function CalonSiswa() {
         </div>
       </CardHeader>
 
-      <CardBody className="overflow-scroll px-0">
+      {/* @ts-ignore */}
+      <CardBody className="overflow-scroll px-0" ref={componentRef}>
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <thead>
             <tr>
