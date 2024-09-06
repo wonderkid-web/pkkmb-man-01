@@ -171,9 +171,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-gray-50 dark:bg-gray-800">
+      {/* <section className="bg-gray-50 dark:bg-gray-800">
         <VisiMisi />
-      </section>
+      </section> */}
 
       <section className="bg-white dark:bg-gray-900">
         <Timelines />

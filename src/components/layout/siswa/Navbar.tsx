@@ -11,45 +11,47 @@ import logo from "/public/logo.png";
 import Link from "next/link";
 import { PowerIcon } from "@heroicons/react/24/solid";
 import SignOutButton from "./SignOutButton";
-
+const navLink = [
+  {
+    url: "/",
+    menu: "Profile Sekolah",
+  },
+  {
+    url: "/form-daftar",
+    menu: "Form Pendaftaran",
+  },
+  {
+    url: "/ekskull",
+    menu: "Ekstrakulikuler",
+  },
+  {
+    url: "/visi-misi",
+    menu: "Nilai Sekolah",
+  },
+  {
+    url: "/sejarah",
+    menu: "Sejarah",
+  },
+];
 function NavList() {
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography as="li" variant="small" className="p-1 font-medium">
-        <Link
-          href="/siswa/"
-          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
+      {navLink.map((link) => (
+        <Typography
+          key={link.menu}
+          as="li"
+          variant="small"
+          className="p-1 font-medium"
         >
-          Profile Sekolah
-        </Link>
-      </Typography>
-      {/* <Typography as="li" variant="small" className="p-1 font-medium">
-        <Link
-          href="/siswa/visi-misi"
-          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
-        >
-          Visi & Misi
-        </Link>
-      </Typography> */}
-      {/* <Typography as="li" variant="small" className="p-1 font-medium">
-        <Link
-          href="/siswa/lokasi"
-          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
-        >
-          Lokasi Sekolah
-        </Link>
-      </Typography> */}
-      <Typography as="li" variant="small" className="p-1 font-medium">
-        <Link
-          href="/siswa/form-daftar"
-          className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
-        >
-          Form Pendaftaran
-        </Link>
-      </Typography>
-
-
-     <SignOutButton />
+          <Link
+            href={`/siswa/${link.url}`}
+            className="flex items-center hover:bg-white hover:text-green-600 px-2 py-1 rounded-sm transition-colors"
+          >
+            {link.menu}
+          </Link>
+        </Typography>
+      ))}
+      <SignOutButton />
     </ul>
   );
 }
