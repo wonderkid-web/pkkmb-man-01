@@ -68,7 +68,7 @@ export default function HistoryWithTimeline() {
     <div className="bg-gradient-to-b from-green-100 to-white min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8 text-green-800">
-          History of MAN 1 Medan Principals
+          Sejarah Singkat MAN 01 Medan
         </h1>
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <p className="text-justify mb-4 text-gray-700">
