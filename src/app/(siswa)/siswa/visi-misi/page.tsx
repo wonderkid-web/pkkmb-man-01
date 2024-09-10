@@ -8,17 +8,17 @@ import { GoalsSection } from "./GoalsSection";
 
 const MissionSection = () => {
   return (
-    <div className="px-4 py-8 max-w-5xl mx-auto">
+    <div className="px-4 py-8 max-w-5xl mx-auto grid grid-cols-2 grid-rows-[fit-content_fit-content] gap-12">
        {/* <div className="w-32 h-32 relative mb-2 mx-auto">
           <Image src={logo} alt="logo" className="h-full w-full" objectFit="cover" />
         </div> */}
       {/* Motto Section */}
-      <section className="mb-12">
+      <section className="col-start-1 col-end-2 row-start-1 row-end-2" style={{height: "100%"}}>
         <h2 className="text-3xl font-extrabold text-center mb-6 relative pb-2">
           Motto
           <div className="absolute inset-x-0 bottom-0 border-b-4 border-green-500 transform -translate-y-1/2" />
         </h2>
-        <div className="text-center text-lg bg-gray-100 p-6 rounded-lg shadow-lg">
+        <div className="text-center text-lg bg-gray-100 p-6 rounded-lg shadow-lg" style={{height: "100%"}}>
           <AcademicCapIcon className="mx-auto h-16 w-16 text-blue-500 mb-4" />
 
           {/* <Image 
@@ -34,7 +34,7 @@ const MissionSection = () => {
       </section>
 
       {/* Vision Section */}
-      <section className="mb-12">
+      <section className="col-start-2 col-end-3 row-start-1 row-end-2 h-full">
         <h2 className="text-3xl font-extrabold text-center mb-6 relative pb-2">
           Visi
           <div className="absolute inset-x-0 bottom-0 border-b-4 border-blue-500 transform -translate-y-1/2" />
@@ -55,7 +55,7 @@ const MissionSection = () => {
       </section>
 
       {/* Mission Section */}
-      <section>
+      <section className="col-span-2 mt-11">
         <h2 className="text-3xl font-extrabold text-center mb-6 relative pb-2">
           Misi
           <div className="absolute inset-x-0 bottom-0 border-b-4 border-purple-500 transform -translate-y-1/2" />
