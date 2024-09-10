@@ -74,7 +74,7 @@ export default function Timelines() {
                 color="blue-gray"
                 className="leading-none"
               >
-                Isi Data Diri kamu pada Form {"Data Anak"}.
+                Isi Data Diri Orang tua kamu pada Form {"Data Orang Tua"}.
               </Typography>
             </TimelineHeader>
             <TimelineBody className="pb-8">
@@ -83,8 +83,8 @@ export default function Timelines() {
                 color="gray"
                 className="font-normal text-gray-600"
               >
-               Setelah membuka halaman Form Pendaftaran nya, kamu bakal di hadapkan form bagian pertama. Dimana pada form ini adalah bagian Data Diri Siswa
-              </Typography>
+              Lakukan pengisian sesuai data dari masing-masing orang tua kalian baik Ibu atau Ayah
+                </Typography>
             </TimelineBody>
           </TimelineItem>
           <TimelineItem>

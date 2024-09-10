@@ -18,7 +18,7 @@ const MissionSection = () => {
           Motto
           <div className="absolute inset-x-0 bottom-0 border-b-4 border-green-500 transform -translate-y-1/2" />
         </h2>
-        <div className="text-center text-lg bg-gray-100 p-6 rounded-lg shadow-lg" style={{height: "100%"}}>
+        <div className="text-center text-lg bg-white p-6 rounded-lg shadow-lg" style={{height: "100%"}}>
           <AcademicCapIcon className="mx-auto h-16 w-16 text-blue-500 mb-4" />
 
           {/* <Image 
@@ -34,12 +34,12 @@ const MissionSection = () => {
       </section>
 
       {/* Vision Section */}
-      <section className="col-start-2 col-end-3 row-start-1 row-end-2 h-full">
+      <section className="col-start-2 col-end-3 row-start-1 row-end-2 h-full" style={{height: "100%"}}>
         <h2 className="text-3xl font-extrabold text-center mb-6 relative pb-2">
           Visi
           <div className="absolute inset-x-0 bottom-0 border-b-4 border-blue-500 transform -translate-y-1/2" />
         </h2>
-        <div className="text-center text-lg bg-gray-50 p-6 rounded-lg shadow-lg">
+        <div className="text-center text-lg bg-white p-6 rounded-lg shadow-lg h-full">
         <LightBulbIcon className="mx-auto h-16 w-16 text-yellow-500 mb-4" />
           
           {/* <Image

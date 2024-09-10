@@ -91,10 +91,6 @@ const Details = () => {
                   {data?.fatherName}
                 </ListItem>
                 <ListItem className="flex justify-between">
-                  <span className="font-medium">Nama Ibu:</span>{" "}
-                  {data?.motherName}
-                </ListItem>
-                <ListItem className="flex justify-between">
                   <span className="font-medium">
                     Tempat/Tanggal Lahir Ayah:
                   </span>{" "}
@@ -102,19 +98,45 @@ const Details = () => {
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Pendidikan Tertinggi:</span>{" "}
-                  {data?.education}
+                  {data?.fatherEducation}
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Pekerjaan:</span>{" "}
-                  {data?.occupation}
-                </ListItem>
-                <ListItem className="flex justify-between">
-                  <span className="font-medium">Alamat:</span>{" "}
-                  {data?.parentAddress}
+                  {data?.fatherOccupation}
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Nomor Telp/HP:</span>{" "}
-                  {data?.parentPhone}
+                  {data?.fatherParentPhone}
+                </ListItem>
+                
+
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nama Ibu:</span>{" "}
+                  {data?.motherName}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">
+                    Tempat/Tanggal Lahir Ibu:
+                  </span>{" "}
+                  {data?.motherBirthDate}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Pendidikan Tertinggi Ibu:</span>{" "}
+                  {data?.motherEducation}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Pekerjaan Ibu:</span>{" "}
+                  {data?.motherOccupation}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Nomor Telp/HP Ibu:</span>{" "}
+                  {data?.motherParentPhone}
+                </ListItem>
+
+
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Alamat:</span>{" "}
+                  {data?.parentAddress}
                 </ListItem>
               </List>
             </div>

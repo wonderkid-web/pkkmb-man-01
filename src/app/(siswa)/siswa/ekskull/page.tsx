@@ -29,8 +29,8 @@ const images = [
 const ImageGrid = () => {
   return (
     <div>
-<h1 className='text-4xl text-green-600 text-center font-bold mb-4'>Ekstrakulikuler MAN 1 Medan</h1>
-<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 bg-green-500 rounded-sm">
+<h1 className='text-4xl text-primary text-center font-bold mb-4'>Ekstrakulikuler MAN 1 Medan</h1>
+<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 bg-primary rounded-sm">
       {images.map((image, index) => (
         <div key={index} className="aspect-square relative overflow-hidden rounded-lg group bg-white">
           <Image
