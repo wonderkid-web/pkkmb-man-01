@@ -36,6 +36,7 @@ export default function RegistrationRequirements({
             Prosedur Pendaftaran
           </Typography>
           <Stepper
+            color="green"
             activeStep={activeStep}
             isLastStep={(value) => setIsLastStep(value)}
             isFirstStep={(value) => setIsFirstStep(value)}
@@ -73,7 +74,7 @@ export default function RegistrationRequirements({
               </Typography>
             </Step>
             <Step onClick={() => setActiveStep(4)}>
-              <Typography className="mt-10 -ml-12 text-right" variant="h6">
+              <Typography className="mt-10 -ml-16 text-right" variant="h6">
                 Pengumuman Kelulusan
               </Typography>
               <Typography variant="small" className="font-normal text-right">

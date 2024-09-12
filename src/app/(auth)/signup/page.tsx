@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import logo from "/public/logo.png";
 import { NAMA_SEKOLAH } from "@/static";
 import { Card, CardBody, Typography, Input, Button } from "@/MT";
@@ -16,6 +15,8 @@ import { useCreateDoc } from "@/hooks";
 
 
 function Page() {
+  const router = useRouter()
+
   const {
     handleSubmit,
     register,
@@ -31,6 +32,7 @@ function Page() {
     await createDoc(form)
 
     reset()
+    router.push('/signin')
     
   };
 

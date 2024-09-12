@@ -2,9 +2,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import {
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/outline";
 
 import {
   Card,
@@ -22,14 +20,19 @@ import { IdentificationIcon, UsersIcon } from "@heroicons/react/24/solid";
 import FileUpload from "@/components/FileUpload";
 import { toast } from "sonner";
 import { useCreateForm } from "@/hooks";
+import { useRouter } from "next/navigation";
 
 const RegistertrationForm = () => {
   const [activeStep, setActiveStep] = React.useState<0 | 1 | 2>(0);
   const [gender, setGender] = useState<FormData["gender"]>("laki-laki");
-  const [docsUrl, setDocsUrl] = useState<string[] | []>(
-    []
-  );
+  const [fatherOccupation, setFatherOccupation] = useState<null | string>(null);
+  const [motherOccupation, setMotherOccupation] = useState<null | string>(null);
+  const [fatherEducation, setFatherEducation] = useState<null | string>(null);
+  const [motherEducation, setMotherEducation] = useState<null | string>(null);
+  const [docsUrl, setDocsUrl] = useState<string[] | []>([]);
   const { createForm } = useCreateForm();
+
+  const router = useRouter()
 
   const {
     register,
@@ -49,6 +52,7 @@ const RegistertrationForm = () => {
     }
 
     reset();
+    router.push('/siswa')
   };
 
   return (
@@ -107,10 +111,27 @@ const RegistertrationForm = () => {
                   <div className="form-group">
                     <Input
                       crossOrigin=""
-                      type="text"
-                      label="Tempat/Tanggal Lahir"
+                      type="input"
+                      label="Tempat Lahir"
+                      {...register("placeBirthDate", {
+                        required: "Tempat lahir wajib diisi",
+                      })}
+                      error={!!errors.placeBirthDate}
+                    />
+                    {errors.placeBirthDate && (
+                      <p className="text-red-600 text-sm mt-1">
+                        {errors.placeBirthDate.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <Input
+                      crossOrigin=""
+                      type="date"
+                      label="Tanggal Lahir"
                       {...register("birthDate", {
-                        required: "Tempat/Tanggal lahir wajib diisi",
+                        required: "Tanggal lahir wajib diisi",
                       })}
                       error={!!errors.birthDate}
                     />
@@ -221,12 +242,48 @@ const RegistertrationForm = () => {
                   </div>
 
                   <div className="form-group">
+                    {/* Select untuk Father Education */}
+                    <Select
+                      onChange={(val) => setFatherEducation(val!)}
+                      defaultValue={fatherEducation!}
+                      label="Pendidikan Terakhir Ayah"
+                      error={!!errors.fatherEducation}
+                    >
+                      <Option value="-">Tidak Bersekolah</Option>
+                      <Option value="sd">SD</Option>
+                      <Option value="smp">SMP</Option>
+                      <Option value="sma">SMA</Option>
+                      <Option value="diploma">Diploma</Option>
+                      <Option value="sarjana">Sarjana</Option>
+                      <Option value="magister">Magister</Option>
+                      <Option value="doktor">Doktor</Option>
+                    </Select>
+                  </div>
+
+                  <div className="form-group">
                     <Input
                       crossOrigin=""
-                      type="text"
-                      label="Tempat/Tanggal Lahir (Ayah)"
+                      type="input"
+                      label="Tempat Lahir (ayah)"
+                      {...register("fatherPlaceBirth", {
+                        required: "Tempat lahir wajib diisi",
+                      })}
+                      error={!!errors.fatherPlaceBirth}
+                    />
+                    {errors.fatherPlaceBirth && (
+                      <p className="text-red-600 text-sm mt-1">
+                        {errors.fatherPlaceBirth.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <Input
+                      crossOrigin=""
+                      type="date"
+                      label="Tanggal Lahir (ayah)"
                       {...register("fatherBirthDate", {
-                        required: "Tempat/Tanggal lahir Ayah wajib diisi",
+                        required: "Tanggal lahir wajib diisi",
                       })}
                       error={!!errors.fatherBirthDate}
                     />
@@ -238,37 +295,20 @@ const RegistertrationForm = () => {
                   </div>
 
                   <div className="form-group">
-                    <Input
-                      crossOrigin=""
-                      type="text"
-                      label="Pendidikan Tertinggi (Ayah)"
-                      {...register("fatherEducation", {
-                        required: "Pendidikan tertinggi wajib diisi",
-                      })}
-                      error={!!errors.fatherEducation}
-                    />
-                    {errors.fatherEducation && (
-                      <p className="text-red-600 text-sm mt-1">
-                        {errors.fatherEducation.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <Input
-                      crossOrigin=""
-                      type="text"
-                      label="Pekerjaan (Ayah)"
-                      {...register("fatherOccupation", {
-                        required: "Pekerjaan wajib diisi",
-                      })}
+                    {/* Select untuk Father Occupation */}
+                    <Select
+                      onChange={(val) => setFatherOccupation(val!)}
+                      defaultValue={fatherOccupation!}
+                      label="Pekerjaan Ayah"
                       error={!!errors.fatherOccupation}
-                    />
-                    {errors.fatherOccupation && (
-                      <p className="text-red-600 text-sm mt-1">
-                        {errors.fatherOccupation.message}
-                      </p>
-                    )}
+                    >
+                      <Option value="petani">Petani</Option>
+                      <Option value="pegawai negeri">Pegawai Negeri</Option>
+                      <Option value="wiraswasta">Wiraswasta</Option>
+                      <Option value="buruh">Buruh</Option>
+                      <Option value="guru">Guru</Option>
+                      <Option value="dokter">Dokter</Option>
+                    </Select>
                   </div>
 
                   <div className="form-group">
@@ -292,6 +332,8 @@ const RegistertrationForm = () => {
                     )}
                   </div>
 
+                  <hr />
+
                   <div className="form-group">
                     <Input
                       crossOrigin=""
@@ -310,12 +352,49 @@ const RegistertrationForm = () => {
                   </div>
 
                   <div className="form-group">
+                    {/* Select untuk Mother Education */}
+                    <Select
+                      onChange={(val) => setMotherEducation(val!)}
+                      defaultValue={motherEducation!}
+                      label="Pendidikan Terakhir Ibu"
+                      error={!!errors.motherEducation}
+                    >
+                      <Option value="-">Tidak Bersekolah</Option>
+
+                      <Option value="sd">SD</Option>
+                      <Option value="smp">SMP</Option>
+                      <Option value="sma">SMA</Option>
+                      <Option value="diploma">Diploma</Option>
+                      <Option value="sarjana">Sarjana</Option>
+                      <Option value="magister">Magister</Option>
+                      <Option value="doktor">Doktor</Option>
+                    </Select>
+                  </div>
+
+                  <div className="form-group">
                     <Input
                       crossOrigin=""
-                      type="text"
-                      label="Tempat/Tanggal Lahir (Ibu)"
+                      type="input"
+                      label="Tempat Lahir (Ibu)"
+                      {...register("motherPlaceBirth", {
+                        required: "Tempat lahir wajib diisi",
+                      })}
+                      error={!!errors.motherPlaceBirth}
+                    />
+                    {errors.motherPlaceBirth && (
+                      <p className="text-red-600 text-sm mt-1">
+                        {errors.motherPlaceBirth.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <Input
+                      crossOrigin=""
+                      type="date"
+                      label="Tanggal Lahir (Ibu)"
                       {...register("motherBirthDate", {
-                        required: "Tempat/Tanggal lahir Ibu wajib diisi",
+                        required: "Tanggal lahir wajib diisi",
                       })}
                       error={!!errors.motherBirthDate}
                     />
@@ -327,37 +406,20 @@ const RegistertrationForm = () => {
                   </div>
 
                   <div className="form-group">
-                    <Input
-                      crossOrigin=""
-                      type="text"
-                      label="Pendidikan Tertinggi (Ibu)"
-                      {...register("motherEducation", {
-                        required: "Pendidikan tertinggi wajib diisi",
-                      })}
-                      error={!!errors.motherEducation}
-                    />
-                    {errors.motherEducation && (
-                      <p className="text-red-600 text-sm mt-1">
-                        {errors.motherEducation.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <Input
-                      crossOrigin=""
-                      type="text"
-                      label="Pekerjaan (Ibu)"
-                      {...register("motherOccupation", {
-                        required: "Pekerjaan wajib diisi",
-                      })}
+                    {/* Select untuk Mother Occupation */}
+                    <Select
+                      onChange={(val) => setMotherOccupation(val!)}
+                      defaultValue={motherOccupation!}
+                      label="Pekerjaan Ibu"
                       error={!!errors.motherOccupation}
-                    />
-                    {errors.motherOccupation && (
-                      <p className="text-red-600 text-sm mt-1">
-                        {errors.motherOccupation.message}
-                      </p>
-                    )}
+                    >
+                      <Option value="ibu rumah tangga">Ibu Rumah Tangga</Option>
+                      <Option value="pegawai negeri">Pegawai Negeri</Option>
+                      <Option value="wiraswasta">Wiraswasta</Option>
+                      <Option value="buruh">Buruh</Option>
+                      <Option value="guru">Guru</Option>
+                      <Option value="dokter">Dokter</Option>
+                    </Select>
                   </div>
 
                   <div className="form-group">
@@ -397,10 +459,6 @@ const RegistertrationForm = () => {
                       </p>
                     )}
                   </div>
-
-               
-
-               
                 </fieldset>
               )}
 

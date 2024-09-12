@@ -2,6 +2,7 @@
 export interface FormData {
     name: string;
     birthDate: string;
+    placeBirthDate: string;
     religion: string;
     address: string;
     phone: string;
@@ -9,11 +10,13 @@ export interface FormData {
     specialization: string;
     motherName: string;
     motherBirthDate: string;
+    motherPlaceBirth: string;
     motherEducation: string;
     motherOccupation: string;
     motherParentPhone: string;
     fatherName: string;
     fatherBirthDate: string;
+    fatherPlaceBirth: string;
     fatherEducation: string;
     fatherOccupation: string;
     parentAddress: string;
