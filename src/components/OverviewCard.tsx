@@ -65,6 +65,7 @@ const OverviewCard = () => {
 
   useEffect(() => {
     const newStat = [...stats];
+    console.log(form)
     newStat[0].stat = akun.length;
     newStat[1].stat = form.length;
     newStat[2].stat = form.filter((f) => f.status).length;
@@ -98,7 +99,7 @@ const OverviewCard = () => {
             {
               data: [
                 { id: 0, value: stats[4].stat, label: "Laki-laki" },
-                { id: 1, value: 6, label: "Perempuan" },
+                { id: 1, value: stats[5].stat, label: "Perempuan" },
               ],
               highlightScope: { faded: "global", highlighted: "item" },
               faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
@@ -123,8 +124,8 @@ const OverviewCard = () => {
           series={[
             {
               data: [
-                { id: 0, value: 100, label: "Kouta Tersisa", color: "gray" },
-                { id: 1, value: 80, label: "Peserta Daftar", color: "orange" },
+                { id: 0, value: 800 - stats[1].stat, label: "Kouta Tersisa", color: "gray" },
+                { id: 1, value: stats[1].stat, label: "Peserta Daftar", color: "orange" },
               ],
               highlightScope: { faded: "global", highlighted: "item" },
               faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },

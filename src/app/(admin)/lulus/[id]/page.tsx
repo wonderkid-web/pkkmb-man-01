@@ -152,7 +152,7 @@ const Details = () => {
               </List>
             </div>
 
-            <ButtonGroup fullWidth className="mt-4">
+            {/* <ButtonGroup fullWidth className="mt-4">
               <Button
                 onClick={() => updateStatus(true)}
                 className="bg-green-500 hover:bg-green-600 text-white font-semibold"
@@ -165,7 +165,7 @@ const Details = () => {
               >
                 Data Tidak Lengkap
               </Button>
-            </ButtonGroup>
+            </ButtonGroup> */}
           </CardBody>
         </Card>
       </div>

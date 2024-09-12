@@ -27,6 +27,17 @@ import { FormData } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { utils, writeFile } from "xlsx";
 
+const TABS = [
+  {
+    label: "Valid",
+    value: "valid",
+  },
+  {
+    label: "TidakValid",
+    value: "unvalid",
+  },
+];
+
 const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
 
 export default function CalonSiswa() {
@@ -68,10 +79,10 @@ export default function CalonSiswa() {
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
-              Table Calon Peserta Didik Non Valid
+              Table Calon Peserta Didik Tervalidasi
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
-              Table Siswa/I yang masih belum di check validasi data nya.
+              Table dengan siswa yang sudah terindikasi lulus seleksi pendaftaran online
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -134,7 +145,7 @@ export default function CalonSiswa() {
           </thead>
           <tbody ref={parent}>
             {data
-              .filter((d) => !d.status)
+              .filter((d) => d.status)
               .filter((d) =>
                 filter
                   ? d.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -226,7 +237,7 @@ export default function CalonSiswa() {
                       </td>
                       <td className={classes}>
                         <Tooltip content="Detail User">
-                          <Link href={`/calon-siswa/${nik}`}>
+                          <Link href={`/lulus/${nik}`}>
                             <IconButton variant="text">
                               <PencilIcon className="h-4 w-4" />
                             </IconButton>
@@ -234,7 +245,7 @@ export default function CalonSiswa() {
                         </Tooltip>
                         <Tooltip content="Kirim Pesan Siswa">
                           <Link
-                            href={`https://wa.me/${phone}?text=Assallamu'alaikum%20Warahmatullahi%20Wabarakatuh.%0ADiberitahukan%20kepada%20peserta%20yang%20bernama%20${name},%0ADinyatakan%20*Gagal*%20dalam%20Sesi%20Pendaftaran%20Peserta%20Didik%20Baru%20jalur%20Online.%0ADikarenakan%20terdapat%20kesalahan%20penginputan%20berkas%20yang%20belum%20memenuhi%20prosedur%20yang%20berlaku.%0A%0AHubungi%20admin%20kami%20untuk%20informasi%20lebih%20lanjut.`}
+                            href={`https://wa.me/${phone}?text=Assallamu'alaikum%20Warahmatullahi%20Wabarakatuh.%0ADiberitahukan%20kepada%20peserta%20yang%20bernama%20${name},%0ADinyatakan%20*Lulus*%20dalam%20Sesi%20Pendaftaran%20Peserta%20Didik%20Baru%20jalur%20Online.%0AInformasi%20Lebih%20Lanjut%20akan%20dikabarkan%20melalui%20akun%20WhatsApp%20ini%20(admin).%0ADiharapkan%20calon%20peserta%20didik%20dapat%20selalu%20mengaktifkan%20nomor%20WhatsApp%20ini.%0A%0AHubungi%20admin%20kami%20untuk%20informasi%20lebih%20lanjut.`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

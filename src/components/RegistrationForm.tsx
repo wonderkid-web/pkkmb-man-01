@@ -45,7 +45,7 @@ const RegistertrationForm = () => {
     try {
       if (data) {
         // @ts-ignore
-        createForm({ ...data, docsUrl } as FormData);
+        createForm({ ...data, docsUrl, motherOccupation: motherOccupation, fatherOccupation: fatherOccupation, gender: gender } as FormData);
       }
     } catch (error) {
       toast.error("Gagal Upload Form");

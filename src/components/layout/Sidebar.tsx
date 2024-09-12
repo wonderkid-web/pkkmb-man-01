@@ -30,6 +30,11 @@ const menuItems = [
     text: "Calon Peserta Didik",
     url: "calon-siswa",
   },
+  {
+    icon: <UserCircleIcon className="h-5 w-5" color="white" />,
+    text: "Siswa Lulus Seleksi",
+    url: "lulus",
+  },
   // {
   //   icon: <InboxIcon className="h-5 w-5" color="white" />,
   //   text: "Inbox",
