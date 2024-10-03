@@ -120,16 +120,19 @@ export function useCreateForm(): UseCreateDocResult<FormData> {
       toast.info("Proses Upload Form Pendaftaran..");
       if (!form) throw new Error("Form Kosong!");
 
+      console.log(form)
+
       // @ts-ignore
       const newDocRef = doc(collData, form.nik);
       await setDoc(newDocRef, form);
+      toast.success("Upload Form Berhasil!");
     } catch (err) {
       toast.error("Error Saat Mengupload Form:" + err);
       console.error("Error Saat Mengupload Form:", err);
-    } finally {
-      toast.success("Upload Form Berhasil!");
     }
   };
 
   return { createForm };
 }
+
+

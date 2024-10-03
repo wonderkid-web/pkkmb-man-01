@@ -15,6 +15,8 @@ import Image from "next/image";
 import { database } from "@/libs/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "sonner";
+import PDFReviewer from "@/components/PDFReviewer";
+import Link from "next/link";
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,6 +36,19 @@ const Details = () => {
       }
     );
   };
+
+  function base64toBlob(
+    base64Data: string,
+    contentType = "application/pdf"
+  ): Blob {
+    const byteCharacters = atob(base64Data.split(",")[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+  }
 
   if (data)
     return (
@@ -100,16 +115,13 @@ const Details = () => {
                   <span className="font-medium">Nomor Telp/HP:</span>{" "}
                   {data?.fatherParentPhone}
                 </ListItem>
-                
 
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Nama Ibu:</span>{" "}
                   {data?.motherName}
                 </ListItem>
                 <ListItem className="flex justify-between">
-                  <span className="font-medium">
-                    Tempat/Tanggal Lahir Ibu:
-                  </span>{" "}
+                  <span className="font-medium">Tempat/Tanggal Lahir Ibu:</span>{" "}
                   {data?.motherBirthDate}
                 </ListItem>
                 <ListItem className="flex justify-between">
@@ -125,7 +137,6 @@ const Details = () => {
                   {data?.motherParentPhone}
                 </ListItem>
 
-
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Alamat:</span>{" "}
                   {data?.parentAddress}
@@ -140,13 +151,17 @@ const Details = () => {
               <List className="grid grid-cols-2 gap-4">
                 {data?.docsUrl?.map((url, index) => (
                   <ListItem key={index} className="flex justify-center">
-                    <Image
-                      src={url}
-                      alt={`foto-${index}`}
-                      width={100}
-                      height={100}
-                      className="rounded-lg shadow-md"
-                    />
+                    {url.includes("data:application/pdf;base64,") ? (
+                      <PDFReviewer pdfBlob={base64toBlob(url)} />
+                    ) : (
+                      <Image
+                        src={url}
+                        alt={`foto-${index}`}
+                        width={100}
+                        height={100}
+                        className="rounded-lg shadow-md"
+                      />
+                    )}
                   </ListItem>
                 ))}
               </List>

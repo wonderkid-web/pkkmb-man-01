@@ -51,8 +51,8 @@ const RegistertrationForm = () => {
       toast.error("Gagal Upload Form");
     }
 
-    reset();
-    router.push('/siswa')
+    // reset();
+    // router.push('/siswa')
   };
 
   return (

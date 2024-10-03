@@ -33,9 +33,8 @@
 //     );
 
 //     setDocsUrl(docsUrl);
-    
-//     setFiles(incommingFiles);
 
+//     setFiles(incommingFiles);
 
 //   };
 
@@ -78,20 +77,21 @@
 //   );
 // }
 
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Dropzone, ExtFile, FileMosaic } from "@files-ui/react";
 import { Typography } from "@material-tailwind/react";
 import { File } from "@/types";
 import { toast } from "sonner";
+import Link from "next/link";
+
+const maxFile = 8;
 
 export default function FileUpload({
   setDocsUrl,
 }: {
-  setDocsUrl: React.Dispatch<
-    React.SetStateAction<string[]>
-  >;
+  setDocsUrl: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
   const [files, setFiles] = useState<ExtFile[]>([]);
 
@@ -118,7 +118,7 @@ export default function FileUpload({
 
   const removeFile = (id: ExtFile["id"]) => {
     setFiles(files.filter((x) => x.id !== id));
-    setDocsUrl(prev => prev.filter((_, index) => files[index].id !== id));
+    setDocsUrl((prev) => prev.filter((_, index) => files[index].id !== id));
   };
 
   const handleStart = (filesToUpload: ExtFile[]) => {
@@ -135,41 +135,64 @@ export default function FileUpload({
 
   return (
     <>
-      <Typography variant="h6" className="mb-4">
+      <Typography variant="h5" className="mb-4">
         Silahkan upload file-file berikut:
       </Typography>
+
       <ul className="list-disc pl-5 mb-4 space-y-2">
-        <li>Pasphoto terbaru (latar belakang merah, 4x6, maks. 1 MB, format JPG/JPEG)</li>
-        <li>Scan/foto akta lahir (maks. 1 MB, format JPG/JPEG/PDF)</li>
-        <li>Scan/foto Kartu Keluarga (maks. 1 MB, format JPG/JPEG/PDF)</li>
-        <li>Scan/foto raport semester 1-5 (maks. 1 MB, format PDF)</li>
+        <li>
+          Pasphoto terbaru (latar belakang merah, 4x6, maks. Format JPG/JPEG)
+        </li>
+        <li>Scan/foto akta lahir (maks. Format JPG/JPEG/PDF)</li>
+        <li>Scan/foto Kartu Keluarga (maks. Format JPG/JPEG/PDF)</li>
+        <li>Scan/foto raport semester 1-5 (maks. Format PDF)</li>
         <li>Scan/foto SKL atau Surat Keterangan siswa aktif kelas akhir</li>
         <li>Scan/foto SKHU dan Ijazah (untuk lulusan sebelum 2024)</li>
-        <li>Bukti Nomor Induk Siswa Nasional (NISN)</li>
       </ul>
-      <Typography variant="h6" className="mb-2">
+      <Typography variant="h5" className="mb-2">
         Prestasi (Opsional):
       </Typography>
       <ul className="list-disc pl-5 mb-4 space-y-2">
-        <li>Maksimal 3 file scan/foto sertifikat prestasi (maks. 1 MB per file, format JPG/JPEG)</li>
+        <li>Maksimal 3 file scan/foto sertifikat prestasi (format JPG/JPEG)</li>
         <li>Prestasi akademik (KSM, MYRES, KSN, OSN, dll.)</li>
         <li>Prestasi non-akademik (Seni, olahraga, ekstrakurikuler)</li>
         <li>Prestasi bidang {"Al-Qur'an"}</li>
         <li>Prestasi hafalan {"Al-Qur'an"} (min. 5 Juz)</li>
       </ul>
-      <Typography variant="paragraph" className="mb-4">
-        <b>PASTIKAN semua file yang diupload sesuai dengan ketentuan di atas.</b>
+      <Typography variant="h6" className="mb-4">
+        Jumlah Ukuran Foto Dibawah adalah 1Mb, pastikan untuk mengkompres file
+        terlebih dahulu.!
       </Typography>
+      <p>
+        Klik Disini jika ukuran file kamu masih terlalu besar {"->"}
+        <Link
+          className="underline"
+          href={
+            "https://imagecompressor.11zon.com/en/image-compressor/compress-image-to-20kb-online"
+          }
+        >
+          11 Zon
+        </Link>
+      </p>
+
       <Dropzone
         onChange={updateFiles}
         value={files}
-        accept=".jpg,.jpeg,.png,.pdf"
-        maxFileSize={2 * 1024 * 1024}
+        onDrop={(e) => alert(e)}
+        accept=".jpg,.jpeg,.png"
+        maxFiles={maxFile}
+        maxFileSize={(1000 / 8) * 1024}
         onUploadStart={handleStart}
         onUploadFinish={handleFinish}
       >
         {files.map((file) => (
-          <FileMosaic key={file.id} {...file} onDelete={removeFile} info preview />
+          <FileMosaic
+            key={file.id}
+            {...file}
+            onDelete={removeFile}
+            info
+            preview
+          />
         ))}
       </Dropzone>
     </>
