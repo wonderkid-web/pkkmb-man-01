@@ -1,5 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { UserIcon } from "@heroicons/react/24/outline";
@@ -21,6 +21,9 @@ import FileUpload from "@/components/FileUpload";
 import { toast } from "sonner";
 import { useCreateForm } from "@/hooks";
 import { useRouter } from "next/navigation";
+import { collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { database } from "@/libs/firebase";
+import { getSession } from "next-auth/react";
 
 const RegistertrationForm = () => {
   const [activeStep, setActiveStep] = React.useState<0 | 1 | 2>(0);
@@ -29,10 +32,12 @@ const RegistertrationForm = () => {
   const [motherOccupation, setMotherOccupation] = useState<null | string>(null);
   const [fatherEducation, setFatherEducation] = useState<null | string>(null);
   const [motherEducation, setMotherEducation] = useState<null | string>(null);
+  const [isLastStep, setIsLastStep] = React.useState(false);
+  const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [docsUrl, setDocsUrl] = useState<string[] | []>([]);
   const { createForm } = useCreateForm();
 
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     register,
@@ -41,28 +46,46 @@ const RegistertrationForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
+  // @ts-ignore
+  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
+  // @ts-ignore
+  const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       if (data) {
+        const session = await getSession()
         // @ts-ignore
-        createForm({ ...data, docsUrl, motherOccupation: motherOccupation, fatherOccupation: fatherOccupation, gender: gender } as FormData);
+        createForm({
+          ...data,
+          docsUrl,
+          motherOccupation: motherOccupation,
+          fatherOccupation: fatherOccupation,
+          gender: gender,
+        } as FormData);
+        //@ts-ignore
+        const docId = session?.user["0"].id
+        const docRef = doc(database, "accounts", docId)
+        await updateDoc(docRef, {registration: true})
       }
     } catch (error) {
       toast.error("Gagal Upload Form");
     }
 
-    // reset();
-    // router.push('/siswa')
+    reset();
+    router.push('/siswa')
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="bg-gray-100 overflow-hidden max-h-screen">
       <StepperWithContent
         activeStep={activeStep}
         setActiveStep={setActiveStep}
+        setIsLastStep={setIsLastStep}
+        setIsFirstStep={setIsFirstStep}
       />
-      <div className="flex justify-center items-center ">
-        <Card className="w-full max-w-3xl ">
+      <div className="flex justify-center items-center mt-16 mb-2">
+        <Card className="w-full max-w-3xl h-[650px] overflow-auto">
           <CardBody>
             <Typography variant="h4" className="mb-6 text-center">
               FORMULIR PENDAFTARAN SISWA BARU
@@ -467,9 +490,8 @@ const RegistertrationForm = () => {
                   <Typography variant="h5" className="font-semibold">
                     C. Persyaratan yang diserahkan
                   </Typography>
-
+                  ``
                   <FileUpload setDocsUrl={setDocsUrl} />
-
                   {/* <div className="form-group">
                     <Input
                       crossOrigin=""
@@ -583,6 +605,25 @@ const RegistertrationForm = () => {
                 Submit
               </Button>
             </form>
+
+            <div className="flex gap-2 mt-2">
+              <Button
+                className="grow"
+                color="teal"
+                onClick={handlePrev}
+                disabled={isFirstStep}
+              >
+                Prev
+              </Button>
+              <Button
+                className="grow"
+                color="teal"
+                onClick={handleNext}
+                disabled={isLastStep}
+              >
+                Next
+              </Button>
+            </div>
           </CardBody>
         </Card>
       </div>
@@ -595,20 +636,16 @@ export default RegistertrationForm;
 function StepperWithContent({
   activeStep,
   setActiveStep,
+  setIsFirstStep,
+  setIsLastStep,
 }: {
   activeStep: number;
   setActiveStep: React.Dispatch<React.SetStateAction<0 | 1 | 2>>;
+  setIsFirstStep: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLastStep: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [isLastStep, setIsLastStep] = React.useState(false);
-  const [isFirstStep, setIsFirstStep] = React.useState(false);
-
-  // @ts-ignore
-  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
-  // @ts-ignore
-  const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
-
   return (
-    <div className="w-full px-24 py-4 h-[300px]">
+    <div className="w-full px-24 py-4">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
@@ -669,16 +706,7 @@ function StepperWithContent({
         </Step>
       </Stepper>
 
-      <div className="mt-32 flex justify-between">
-        <Button color="teal" onClick={handlePrev} disabled={isFirstStep}>
-          Prev
-        </Button>
-        <Button color="teal" onClick={handleNext} disabled={isLastStep}>
-          Next
-        </Button>
-      </div>
-
-      <div className="mt-32 flex justify-between">{/* <UploadPage /> */}</div>
+      {/* <div className="mt-32 flex justify-between"><UploadPage /></div> */}
     </div>
   );
 }

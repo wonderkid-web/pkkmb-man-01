@@ -5,8 +5,11 @@ import React, { useState } from "react";
 
 function Page() {
   const [accept, setAccept] = useState(false);
+ 
+
   return (
     <>
+    {/* {registration ? "udh daftar" : "belum daftar"} */}
       {!accept ? <RegistrationRequirements setAccept={setAccept}/> : <RegistertrationForm />}
     </>
   );

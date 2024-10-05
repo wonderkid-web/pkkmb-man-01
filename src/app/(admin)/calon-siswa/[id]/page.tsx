@@ -7,16 +7,20 @@ import {
   List,
   ListItem,
   Button,
+  IconButton,
+  Tooltip,
 } from "@/MT";
 import { FormData } from "@/types";
 import { useGetDoc } from "@/hooks";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import whatsapp from "/public/whatsapp.png";
 import { database } from "@/libs/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "sonner";
-import PDFReviewer from "@/components/PDFReviewer";
 import Link from "next/link";
+import Gallery from "@/components/Galery";
+import { Suspense } from "react";
 
 const Details = () => {
   const { id } = useParams<{ id: string }>();
@@ -83,7 +87,26 @@ const Details = () => {
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Nomor Telp/HP:</span>{" "}
-                  {data?.phone}
+                  <span>
+                    {data?.phone}
+                    <Tooltip content="Kirim Pesan Siswa">
+                      <Link
+                        href={`https://wa.me/${data?.phone}?text=Assallamu'alaikum%20Warahmatullahi%20Wabarakatuh.%0ADiberitahukan%20kepada%20peserta%20yang%20bernama%20${data?.name},%0ADinyatakan%20*Lulus*%20dalam%20Sesi%20Pendaftaran%20Peserta%20Didik%20Baru%20jalur%20Online.%0AInformasi%20Lebih%20Lanjut%20akan%20dikabarkan%20melalui%20akun%20WhatsApp%20ini%20(admin).%0ADiharapkan%20calon%20peserta%20didik%20dapat%20selalu%20mengaktifkan%20nomor%20WhatsApp%20ini.%0A%0AHubungi%20admin%20kami%20untuk%20informasi%20lebih%20lanjut.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <IconButton variant="text">
+                          <div className="relative h-5 w-5">
+                            <Image
+                              src={whatsapp}
+                              alt="whatsapp icon"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </IconButton>
+                      </Link>
+                    </Tooltip>
+                  </span>
                 </ListItem>
               </List>
             </div>
@@ -113,7 +136,27 @@ const Details = () => {
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Nomor Telp/HP:</span>{" "}
-                  {data?.fatherParentPhone}
+                  <span>
+                    {data?.fatherParentPhone}
+
+                    <Tooltip content="Kirim Pesan Siswa">
+                      <Link
+                        href={`https://wa.me/${data?.fatherParentPhone}?text=Assallamu'alaikum%20Warahmatullahi%20Wabarakatuh.%0ADiberitahukan%20kepada%20peserta%20yang%20bernama%20${data?.name},%0ADinyatakan%20*Lulus*%20dalam%20Sesi%20Pendaftaran%20Peserta%20Didik%20Baru%20jalur%20Online.%0AInformasi%20Lebih%20Lanjut%20akan%20dikabarkan%20melalui%20akun%20WhatsApp%20ini%20(admin).%0ADiharapkan%20calon%20peserta%20didik%20dapat%20selalu%20mengaktifkan%20nomor%20WhatsApp%20ini.%0A%0AHubungi%20admin%20kami%20untuk%20informasi%20lebih%20lanjut.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <IconButton variant="text">
+                          <div className="relative h-5 w-5">
+                            <Image
+                              src={whatsapp}
+                              alt="whatsapp icon"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </IconButton>
+                      </Link>
+                    </Tooltip>
+                  </span>
                 </ListItem>
 
                 <ListItem className="flex justify-between">
@@ -134,7 +177,27 @@ const Details = () => {
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Nomor Telp/HP Ibu:</span>{" "}
-                  {data?.motherParentPhone}
+                  <span>
+                    {data?.motherParentPhone}
+
+                    <Tooltip content="Kirim Pesan Siswa">
+                      <Link
+                        href={`https://wa.me/${data?.motherParentPhone}?text=Assallamu'alaikum%20Warahmatullahi%20Wabarakatuh.%0ADiberitahukan%20kepada%20peserta%20yang%20bernama%20${data?.name},%0ADinyatakan%20*Lulus*%20dalam%20Sesi%20Pendaftaran%20Peserta%20Didik%20Baru%20jalur%20Online.%0AInformasi%20Lebih%20Lanjut%20akan%20dikabarkan%20melalui%20akun%20WhatsApp%20ini%20(admin).%0ADiharapkan%20calon%20peserta%20didik%20dapat%20selalu%20mengaktifkan%20nomor%20WhatsApp%20ini.%0A%0AHubungi%20admin%20kami%20untuk%20informasi%20lebih%20lanjut.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <IconButton variant="text">
+                          <div className="relative h-5 w-5">
+                            <Image
+                              src={whatsapp}
+                              alt="whatsapp icon"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </IconButton>
+                      </Link>
+                    </Tooltip>
+                  </span>
                 </ListItem>
 
                 <ListItem className="flex justify-between">
@@ -148,23 +211,9 @@ const Details = () => {
               <Typography variant="h5" className="font-semibold text-green-600">
                 C. Persyaratan yang diserahkan
               </Typography>
-              <List className="grid grid-cols-2 gap-4">
-                {data?.docsUrl?.map((url, index) => (
-                  <ListItem key={index} className="flex justify-center">
-                    {url.includes("data:application/pdf;base64,") ? (
-                      <PDFReviewer pdfBlob={base64toBlob(url)} />
-                    ) : (
-                      <Image
-                        src={url}
-                        alt={`foto-${index}`}
-                        width={100}
-                        height={100}
-                        className="rounded-lg shadow-md"
-                      />
-                    )}
-                  </ListItem>
-                ))}
-              </List>
+              <Suspense fallback={<h1>Loading...</h1>}>
+                <Gallery data={data} />
+              </Suspense>
             </div>
 
             <ButtonGroup fullWidth className="mt-4">

@@ -10,10 +10,6 @@ import {
   CardBody,
   Chip,
   CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
@@ -26,6 +22,7 @@ import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { utils, writeFile } from "xlsx";
+import ProfilePicture from "@/components/ProfilePicture";
 
 const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
 
@@ -166,7 +163,7 @@ export default function CalonSiswa() {
                     <tr key={name}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                          <Avatar src={docsUrl[0]} alt={name} size="sm" />
+                          <ProfilePicture name={name} />
                           <div className="flex flex-col">
                             <Typography
                               variant="small"

@@ -35,7 +35,7 @@ export const options: AuthOptions = {
 
             const rawDoc = await getDocs(q);
 
-            const user = rawDoc.docs.map((d) => d.data());
+            const user = rawDoc.docs.map((d) => ({...d.data(), id: d.id}));
 
             // Add logic here to look up the user from the credentials supplied
 
@@ -71,15 +71,16 @@ export const options: AuthOptions = {
   callbacks: {
     async jwt({ user, token }) {
       if (user) {
-        console.log("JWT")
+        token.user = {...user}
       }
       return token;
     },
 
     async session({ session, token }) {
-      console.log("session")
+
       if(token){
-        session.user = token;
+        // @ts-ignore
+        session.user = token.user;
       }
 
       return session;

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -11,6 +11,9 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { database } from "@/libs/firebase";
+import { DocumentData, query, collection, where, getDocs } from "firebase/firestore";
+import { getSession } from "next-auth/react";
 
 export default function RegistrationRequirements({
   setAccept,
@@ -20,9 +23,23 @@ export default function RegistrationRequirements({
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
+  const [registration, setRegistration] = useState<DocumentData[]|null>(null)
 
   const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
   const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+
+
+  useEffect(()=>{
+    (async()=>{
+      const session = await getSession()
+      // @ts-ignore
+      const nik = session?.user["0"].nik
+      const q = query(collection(database, 'accounts'), where("nik", "==", nik))
+      const raw = await getDocs(q)
+      const data = raw.docs.map(d=>d.data())
+      setRegistration(data[0].registration)
+    })()
+  },[])
 
   return (
     <div className=" mx-auto px-4 py-8 flex flex-col">
@@ -222,12 +239,29 @@ export default function RegistrationRequirements({
         </CardBody>
       </Card>
 
+     { registration ? <Card className="w-full">
+        <CardBody>
+        <Typography variant="h4" color="green" className="mb-4">
+            Kamu Sudah Melakukan Pendaftaran Sebelumnya
+          </Typography>
+          <Typography variant="h5" color="teal" className="mb-4">
+            Hm.. Sepertinya kamu sudah melakukan pendaftaran sebelumnya nih.. 🤷🏻
+          </Typography>
+          <Typography variant="h5" color="teal" className="mb-4">
+            Jika merasa belum melakukan pengisian form hubungi admin kami dengan cara mengklik tombol dibawah ini.
+          </Typography>
+
+
+            <Button color="green">Contact Admin {" "} 📞</Button>
+        </CardBody>
+      </Card>
+      :
       <Card className="w-full">
         <CardBody>
         <Typography variant="h4" color="green" className="mb-4">
             Lakukan Pengisian Form
           </Typography>
-          <Typography variant="h5" color="green" className="mb-4">
+          <Typography variant="h5" color="teal" className="mb-4">
             Jika Sudah Memahami dan Menyiapkan Berkas yang dibutuhkan pada
             keterangan diatas, klik tombol dibawah ini untuk mengisi form
             Pendaftaran
@@ -235,7 +269,7 @@ export default function RegistrationRequirements({
        
             <Button color="green" onClick={()=>setAccept(true)}>Isi Form Pendaftaran Online</Button>
         </CardBody>
-      </Card>
+      </Card>}
     </div>
   );
 }

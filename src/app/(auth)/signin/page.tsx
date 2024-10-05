@@ -81,7 +81,7 @@ function Page() {
         </div>
 
         <div className="flex w-[400px]  md:w-1/2 justify-center py-10 items-center bg-white">
-          <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-2/4">
+          <form onSubmit={handleSubmit(onSubmit)} className="bg-white w-2/4" autoComplete="off">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">Hallo..</h1>
             <p className="text-sm font-normal text-gray-600 mb-7">
               Selamat Datang Kembali
