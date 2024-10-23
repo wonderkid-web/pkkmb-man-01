@@ -16,12 +16,11 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import whatsapp from "/public/whatsapp.png";
-import { ReactInstance, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
+import { useRef, useState } from "react";
+// import { useReactToPrint } from "react-to-print";
 import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { utils, writeFile } from "xlsx";
 import ProfilePicture from "@/components/ProfilePicture";
 
 const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
@@ -32,7 +31,9 @@ export default function CalonSiswa() {
   const [parent] = useAutoAnimate();
   const componentRef = useRef();
 
-  const handleExportToExcel = () => {
+  const handleExportToExcel = async () => {
+// import { utils, writeFile } from "xlsx";
+    const {utils, writeFile} = (await (import('xlsx'))).default
     // Prepare the data for Excel
     const excelData = data.map((item) => ({
       Name: item.name,
@@ -54,10 +55,10 @@ export default function CalonSiswa() {
     writeFile(workbook, "Calon_Peserta_Didik.xlsx");
   };
 
-  const handlePrint = useReactToPrint({
-    content: (): ReactInstance | null =>
-      componentRef.current! as ReactInstance | null,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: (): ReactInstance | null =>
+  //     componentRef.current! as ReactInstance | null,
+  // });
 
   return (
     <Card className="h-full w-full">

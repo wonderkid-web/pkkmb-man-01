@@ -28,12 +28,12 @@ const menuItems = [
   {
     icon: <UserCircleIcon className="h-5 w-5" color="white" />,
     text: "Calon Peserta Didik",
-    url: "calon-siswa",
+    url: "/calon-siswa",
   },
   {
     icon: <UserCircleIcon className="h-5 w-5" color="white" />,
     text: "Siswa Lulus Seleksi",
-    url: "lulus",
+    url: "/lulus",
   },
   // {
   //   icon: <InboxIcon className="h-5 w-5" color="white" />,
@@ -54,7 +54,7 @@ const MenuList = () => {
       {menuItems.map((item, index) => (
         <ListItem key={index} className="hover:bg-primary w-4/5">
           <ListItemPrefix color="white">{item.icon}</ListItemPrefix>
-          <Link href={item.url}>
+          <Link href={item.url} replace={true}>
             <Typography color="white">{item.text}</Typography>
           </Link>
         </ListItem>

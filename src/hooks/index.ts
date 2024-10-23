@@ -89,6 +89,7 @@ export function useGetDoc<FormData extends DocumentData>(nik: FormData["nik"]) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log(nik)
         const docRef = doc(database, "form_pendaftaran", nik);
         const docSnap = await getDoc(docRef);
 

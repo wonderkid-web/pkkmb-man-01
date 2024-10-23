@@ -1,3 +1,14 @@
+import { DashboardStat } from "@/types";
+import {
+  UsersIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
+
+
+
 export const NAMA_SEKOLAH = "PKKMB MAN 01 Medan Pancing"
 
 export const goals = [
@@ -19,3 +30,43 @@ export const goals = [
   "Tercapainya kegiatan 5T (Tertib Masuk, Tertib Kerja, Tertib Pulang, Tertib Belajar, Tertib Mengajar).",
   "Tercapainya kegiatan 5G (Gemar membaca, Gemar menulis, Gemar menghafal, Gemar memahami, dan Gemar mengamalkan).",
 ];
+
+
+export const DashboardStatInitiateData : DashboardStat[] = [
+  {
+    name: "Total Akun Siswa",
+    icon: UsersIcon,
+    color: "text-blue-500",
+    bgColor: "bg-blue-100",
+  },
+  {
+    name: "Total Pendaftar",
+    icon: ClockIcon,
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-100",
+  },
+  {
+    name: "Pendaftar Tersetuju",
+    icon: CheckCircleIcon,
+    color: "text-green-500",
+    bgColor: "bg-green-100",
+  },
+  {
+    name: "Pendaftar Tertunda",
+    icon: XCircleIcon,
+    color: "text-red-500",
+    bgColor: "bg-red-100",
+  },
+  {
+    name: "Jumlah Pendaftar Laki-Laki",
+    icon: UserCircleIcon,
+    color: "text-purple-500",
+    bgColor: "bg-purple-100",
+  },
+  {
+    name: "Jumlah Pendaftar Perempuan",
+    icon: UserCircleIcon,
+    color: "text-pink-500",
+    bgColor: "bg-pink-100",
+  },
+]

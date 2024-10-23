@@ -1,9 +1,12 @@
 import OverviewCard from '@/components/OverviewCard'
-import React from 'react'
+import { getServerSession } from 'next-auth'
+import { options } from '../api/auth/[...nextauth]/options'
+import { redirect } from 'next/navigation'
 
-type Props = {}
+async function page() {
+  const session = await getServerSession(options)
 
-function page({}: Props) {
+  if(!session?.user) redirect('/signin')
   return (
     <div className='min-h-full'>
       <OverviewCard />

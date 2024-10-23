@@ -1,3 +1,4 @@
+import React from "react";
 
 export interface FormData {
     name: string;
@@ -59,3 +60,11 @@ export interface File {
   name: string;
   file: string | ArrayBuffer | null;
 }
+
+export type DashboardStat = {
+  name: string;
+  stat?: number;
+  icon: any; // Menggunakan type untuk React component
+  color: string;
+  bgColor?: string;
+};

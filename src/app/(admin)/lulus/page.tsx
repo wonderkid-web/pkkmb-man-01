@@ -16,12 +16,11 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import whatsapp from "/public/whatsapp.png";
-import { ReactInstance, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
+import { useRef, useState } from "react";
+// import { useReactToPrint } from "react-to-print";
 import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { utils, writeFile } from "xlsx";
 import ProfilePicture from "@/components/ProfilePicture";
 
 const TABS = [
@@ -43,7 +42,9 @@ export default function CalonSiswa() {
   const [parent] = useAutoAnimate();
   const componentRef = useRef();
 
-  const handleExportToExcel = () => {
+  const handleExportToExcel = async () => {
+    const { utils, writeFile } = (await import("xlsx")).default;
+
     // Prepare the data for Excel
     const excelData = data.map((item) => ({
       Name: item.name,
@@ -65,10 +66,10 @@ export default function CalonSiswa() {
     writeFile(workbook, "Calon_Peserta_Didik.xlsx");
   };
 
-  const handlePrint = useReactToPrint({
-    content: (): ReactInstance | null =>
-      componentRef.current! as ReactInstance | null,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: (): ReactInstance | null =>
+  //     componentRef.current! as ReactInstance | null,
+  // });
 
   return (
     <Card className="h-full w-full">
@@ -79,7 +80,8 @@ export default function CalonSiswa() {
               Table Calon Peserta Didik Tervalidasi
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
-              Table dengan siswa yang sudah terindikasi lulus seleksi pendaftaran online
+              Table dengan siswa yang sudah terindikasi lulus seleksi
+              pendaftaran online
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -174,7 +176,7 @@ export default function CalonSiswa() {
                     <tr key={name}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                        <ProfilePicture name={name} />
+                          <ProfilePicture name={name} />
                           <div className="flex flex-col">
                             <Typography
                               variant="small"

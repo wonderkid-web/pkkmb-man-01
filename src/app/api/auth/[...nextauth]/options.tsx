@@ -67,6 +67,7 @@ export const options: AuthOptions = {
   pages: {
     signIn: "/signin",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
     async jwt({ user, token }) {
