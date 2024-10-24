@@ -59,9 +59,11 @@ const RegistertrationForm = () => {
         createForm({
           ...data,
           docsUrl,
-          motherOccupation: motherOccupation,
-          fatherOccupation: fatherOccupation,
-          gender: gender,
+          motherOccupation,
+          fatherOccupation,
+          fatherEducation,
+          motherEducation,
+          gender
         } as FormData);
         //@ts-ignore
         const docId = session?.user["0"].id
@@ -331,6 +333,7 @@ const RegistertrationForm = () => {
                       <Option value="buruh">Buruh</Option>
                       <Option value="guru">Guru</Option>
                       <Option value="dokter">Dokter</Option>
+                      <Option value="lainnya">Lainnya</Option>
                     </Select>
                   </div>
 
@@ -442,6 +445,7 @@ const RegistertrationForm = () => {
                       <Option value="buruh">Buruh</Option>
                       <Option value="guru">Guru</Option>
                       <Option value="dokter">Dokter</Option>
+                      <Option value="lainnya">Lainnya</Option>
                     </Select>
                   </div>
 

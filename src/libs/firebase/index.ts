@@ -5,6 +5,7 @@ import {getFirestore} from "firebase/firestore"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
 // WAHYU
 // const firebaseConfig = {
 //   apiKey: "AIzaSyCqEh6siSFSAqt9VMNQsLYqe32UQfHGzZM",
