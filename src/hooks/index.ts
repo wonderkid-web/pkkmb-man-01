@@ -89,7 +89,6 @@ export function useGetDoc<FormData extends DocumentData>(nik: FormData["nik"]) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(nik)
         const docRef = doc(database, "form_pendaftaran", nik);
         const docSnap = await getDoc(docRef);
 
@@ -120,8 +119,6 @@ export function useCreateForm(): UseCreateDocResult<FormData> {
     try {
       toast.info("Proses Upload Form Pendaftaran..");
       if (!form) throw new Error("Form Kosong!");
-
-      console.log(form)
 
       // @ts-ignore
       const newDocRef = doc(collData, form.nik);

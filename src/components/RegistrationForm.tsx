@@ -63,7 +63,8 @@ const RegistertrationForm = () => {
           fatherOccupation,
           fatherEducation,
           motherEducation,
-          gender
+          gender,
+          created_at: new Date()
         } as FormData);
         //@ts-ignore
         const docId = session?.user["0"].id
@@ -624,7 +625,7 @@ const RegistertrationForm = () => {
                 color="teal"
                 onClick={handleNext}
                 disabled={isLastStep}
-              >
+                >
                 Next
               </Button>
             </div>

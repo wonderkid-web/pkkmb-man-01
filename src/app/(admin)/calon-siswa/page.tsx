@@ -17,13 +17,13 @@ import Image from "next/image";
 import Link from "next/link";
 import whatsapp from "/public/whatsapp.png";
 import { useRef, useState } from "react";
-// import { useReactToPrint } from "react-to-print";
 import { useGetDocs } from "@/hooks";
 import { FormData } from "@/types";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import ProfilePicture from "@/components/ProfilePicture";
+import { formattedDate } from "@/helper";
 
-const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Lahir", ""];
+const TABLE_HEAD = ["Nama Lengkap", "NIK", "Status", "Tanggal Daftar", ""];
 
 export default function CalonSiswa() {
   const { data } = useGetDocs<FormData>("form_pendaftaran");
@@ -32,10 +32,10 @@ export default function CalonSiswa() {
   const componentRef = useRef();
 
   const handleExportToExcel = async () => {
-// import { utils, writeFile } from "xlsx";
-    const {utils, writeFile} = (await (import('xlsx'))).default
+
+    const {utils, writeFile} = (await (import('xlsx')))
     // Prepare the data for Excel
-    const excelData = data.map((item) => ({
+    const excelData = data.filter(d=>!d.status).map((item) => ({
       Name: item.name,
       NIK: item.nik,
       Phone: item.phone,
@@ -44,6 +44,7 @@ export default function CalonSiswa() {
       "Mother's Education": item.motherEducation,
       "Birth Date": item.birthDate,
       Status: item.status ? "Valid" : "Tidak Valid",
+      "Tanggal Daftar" :  formattedDate(item.created_at as {seconds: number; nanoseconds: number})
     }));
 
     // Create a new workbook and add the data
@@ -143,15 +144,12 @@ export default function CalonSiswa() {
                 // ({ img, name, email, job, org, online, date }, index) => {
                 (
                   {
-                    docsUrl,
                     nik,
                     name,
                     phone,
-                    fatherEducation,
-                    motherEducation,
                     fatherName,
-                    birthDate,
                     status,
+                    created_at
                   },
                   index
                 ) => {
@@ -219,7 +217,9 @@ export default function CalonSiswa() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {birthDate}
+                          {
+                            formattedDate(created_at as {seconds: number; nanoseconds: number})
+                          }
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -261,7 +261,7 @@ export default function CalonSiswa() {
           {/* Page 1 of 10 */}
           Total Pendaftar:{" "}
           <span className="font-bold bg-green-800 text-white p-1 rounded-sm">
-            {data.length}
+            {data.filter(d=>!d.status).length}
           </span>
         </Typography>
         {/* <div className="flex gap-2">

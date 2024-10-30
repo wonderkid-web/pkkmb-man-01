@@ -1,6 +1,10 @@
 import React from "react";
 
 export interface FormData {
+    created_at: {
+      seconds: number;
+      nanoseconds: number
+    } | number
     name: string;
     birthDate: string;
     placeBirthDate: string;

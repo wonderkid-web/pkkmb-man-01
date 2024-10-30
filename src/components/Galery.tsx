@@ -25,6 +25,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
+       
         {data?.docsUrl?.map((url: string, index: number) => (
           <div key={index} className="flex justify-center">
             {url.includes('data:application/pdf;base64,') ? (

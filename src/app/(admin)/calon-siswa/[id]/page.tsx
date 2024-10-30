@@ -76,6 +76,10 @@ const Details = () => {
                   {data?.name}
                 </ListItem>
                 <ListItem className="flex justify-between">
+                  <span className="font-medium">Jenis Kelamin:</span>
+                  {data?.gender}
+                </ListItem>
+                <ListItem className="flex justify-between">
                   <span className="font-medium">Tempat/Tanggal Lahir:</span>{" "}
                   {data?.birthDate}
                 </ListItem>

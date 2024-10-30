@@ -26,19 +26,19 @@ const Details = () => {
 
   const { data } = useGetDoc<FormData>(id);
 
-  const updateStatus = async (status: boolean) => {
-    const docRef = doc(database, "form_pendaftaran", id);
+  // const updateStatus = async (status: boolean) => {
+  //   const docRef = doc(database, "form_pendaftaran", id);
 
-    toast.promise(
-      updateDoc(docRef, {
-        status,
-      }),
-      {
-        loading: "Update Status Dokumen",
-        success: "Berhasil Merubah Status",
-      }
-    );
-  };
+  //   toast.promise(
+  //     updateDoc(docRef, {
+  //       status,
+  //     }),
+  //     {
+  //       loading: "Update Status Dokumen",
+  //       success: "Berhasil Merubah Status",
+  //     }
+  //   );
+  // };
 
   if (data)
     return (
@@ -60,6 +60,10 @@ const Details = () => {
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Nama Calon Siswa:</span>{" "}
                   {data?.name}
+                </ListItem>
+                <ListItem className="flex justify-between">
+                  <span className="font-medium">Jenis Kelamin:</span>
+                  {data?.gender}
                 </ListItem>
                 <ListItem className="flex justify-between">
                   <span className="font-medium">Tempat/Tanggal Lahir:</span>{" "}
