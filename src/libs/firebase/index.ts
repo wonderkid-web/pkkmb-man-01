@@ -6,7 +6,6 @@ import {getFirestore} from "firebase/firestore"
 
 // Your web app's Firebase configuration
 
-// WAHYU
 // const firebaseConfig = {
 //   apiKey: "AIzaSyCqEh6siSFSAqt9VMNQsLYqe32UQfHGzZM",
 //   authDomain: "library-react-49505.firebaseapp.com",

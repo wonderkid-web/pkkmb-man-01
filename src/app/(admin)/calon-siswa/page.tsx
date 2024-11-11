@@ -110,6 +110,9 @@ export default function CalonSiswa() {
         </div>
       </CardHeader>
 
+      <h1>Bot...</h1>
+
+
       {/* @ts-ignore */}
       <CardBody className="overflow-scroll px-0" ref={componentRef}>
         <table className="mt-4 w-full min-w-max table-auto text-left">

@@ -1,7 +1,6 @@
 "use client";
 
 import { SignupFormData } from "@/types";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -88,7 +87,7 @@ function Page() {
                       },
                     })}
                     error={!!errors.nik}
-                    className="pl-16" // Padding left untuk ikon
+                    className="" // Padding left untuk ikon
                   />
                   {errors.nik && (
                     <p className="text-red-600 text-sm mt-1">
